@@ -3,7 +3,6 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
-import Loading from "@/loading";
 
 interface Product {
     id: number;
@@ -37,7 +36,7 @@ export default function ProductsList({
         staleTime: 1000 * 60,
     });
 
-    if (isLoading) return <Loading />; // Show loading state while fetching
+    if (isLoading) return <p>Loading...</p>; // Show loading state while fetching
     if (isError) return <p>Error fetching products.</p>; // Handle errors
 
     return (

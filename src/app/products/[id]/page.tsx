@@ -72,7 +72,7 @@ export default async function ProductPage({
                         <p className="text-[1.5rem]">${product.price}</p>
                         <p>{product.description}</p>
                         <div className="flex gap-4">
-                            <WishlistButton className="w-full" />
+                            <WishlistButton className="w-full" style="full" />
                             <CartButton className="w-full" />
                         </div>
                         <div className="flex w-full justify-between">

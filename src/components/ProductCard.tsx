@@ -1,4 +1,5 @@
 import CartButton from "./CartButton";
+import WishlistButton from "./WishlistButton";
 
 type ProductProps = {
     image: string;
@@ -18,7 +19,10 @@ const ProductCard = ({ image, title, price }: ProductProps) => {
                 {title}
             </h3>
             <p className="font-bold text-center">${price}</p>
-            <CartButton />
+            <div className="flex justify-between w-3/4 mx-auto gap-2">
+                <WishlistButton style="mini" />
+                <CartButton className="flex-1" />
+            </div>
         </div>
     );
 };
