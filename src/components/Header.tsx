@@ -23,7 +23,9 @@ const Header = () => {
             <Navbar />
             <div className="flex gap-6">
                 <Icon icon="lucide:heart" width="24" height="24" />
-                <Icon icon="lucide:shopping-cart" width="24" height="24" />
+                <Link href="/cart">
+                    <Icon icon="lucide:shopping-cart" width="24" height="24" />
+                </Link>
                 <Icon icon="lucide:user" width="24" height="24" />
             </div>
             <AuthButton />

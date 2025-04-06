@@ -16,14 +16,14 @@ const Cart = () => {
                             <p>{Date.now()}</p>
                         </div>
                         <div className="flex items-center">
-                            <button className="px-3 cursor-pointer">-</button>
+                            <button className="p-2 cursor-pointer">-</button>
                             <div className="px-3 border-2 h-min border-[#D9D9D9] rounded-md">
                                 0
                             </div>
-                            <button className="px-3 cursor-pointer">+</button>
+                            <button className="p-2 cursor-pointer">+</button>
                         </div>
                         <p>$1999.99</p>
-                        <button className="px-3 cursor-pointer">×</button>
+                        <button className="p-2 cursor-pointer">×</button>
                     </div>
                     <div className="w-full h-0.25 bg-[#A3A3A3]"></div>
                     <div className="flex items-center justify-between">
