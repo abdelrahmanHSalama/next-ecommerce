@@ -7,10 +7,10 @@ const AuthButton = () => {
     if (session) {
         return (
             <div className="flex gap-2 items-center">
-                <p>Hello, {session.user?.name} 👋</p>
+                <p>(Hello, {session.user?.name} 👋)</p>
                 <button
-                    className="p-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer"
-                    onClick={() => signOut}
+                    className="p-2 rounded-md hover:bg-[#F5F5F5] transition duration-250 cursor-pointer"
+                    onClick={() => signOut()}
                 >
                     Signout
                 </button>
@@ -20,7 +20,7 @@ const AuthButton = () => {
 
     return (
         <button
-            className="p-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer"
+            className="p-2 rounded-md hover:bg-[#F5F5F5] transition duration-250 cursor-pointer"
             onClick={() => signIn("google")}
         >
             Sign In with Google

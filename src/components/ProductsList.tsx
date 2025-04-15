@@ -42,13 +42,13 @@ export default function ProductsList({
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {data.map((product: Product) => (
-                <Link key={product.id} href={`/products/${product.id}`}>
-                    <ProductCard
-                        image={product.thumbnail}
-                        title={product.title}
-                        price={product.price}
-                    />
-                </Link>
+                <ProductCard
+                    image={product.thumbnail}
+                    title={product.title}
+                    price={product.price}
+                    id={product.id}
+                    key={product.id}
+                />
             ))}
         </div>
     );

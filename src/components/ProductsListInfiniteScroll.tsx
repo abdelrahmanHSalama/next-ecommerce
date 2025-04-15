@@ -2,7 +2,6 @@
 import axios from "axios";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ProductCard from "./ProductCard";
-import Link from "next/link";
 
 interface Product {
     id: number;
@@ -71,13 +70,13 @@ export default function ProductsListInfiniteScroll({
         <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {products.map((product: Product) => (
-                    <Link key={product.id} href={`/products/${product.id}`}>
-                        <ProductCard
-                            image={product.thumbnail}
-                            title={product.title}
-                            price={product.price}
-                        />
-                    </Link>
+                    <ProductCard
+                        image={product.thumbnail}
+                        title={product.title}
+                        price={product.price}
+                        id={product.id}
+                        key={product.id}
+                    />
                 ))}
             </div>
 
@@ -86,9 +85,13 @@ export default function ProductsListInfiniteScroll({
                     <button
                         onClick={() => fetchNextPage()}
                         disabled={isFetchingNextPage}
-                        className="p-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer mt-2"
+                        className="p-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer mt-4 rounded-md"
                     >
-                        {isFetchingNextPage ? "Loading..." : "Show More"}
+                        {isFetchingNextPage ? (
+                            <div className="loader w-4 h-4 border-[#989898]"></div>
+                        ) : (
+                            "Show More"
+                        )}
                     </button>
                 </div>
             )}

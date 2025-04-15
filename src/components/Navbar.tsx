@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const navLinks = [
     { href: "/", label: "Home" },
     { href: "/products", label: "Products" },
+    { href: "/about", label: "About" },
 ];
 
 const Navbar = () => {
@@ -14,7 +15,7 @@ const Navbar = () => {
 
     return (
         <nav>
-            <ul className="flex gap-12">
+            <ul className="flex gap-2">
                 {navLinks.map(({ href, label }) => {
                     const isActive = pathname === href;
                     return (
@@ -23,8 +24,8 @@ const Navbar = () => {
                                 href={href}
                                 className={`${
                                     isActive
-                                        ? "text-black"
-                                        : "text-[#989898] hover:text-black transition duration-250"
+                                        ? "text-black hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
+                                        : "text-[#989898] hover:text-black transition duration-250 hover:bg-[#F5F5F5] cursor-pointer p-2 rounded-md"
                                 }`}
                             >
                                 {label}

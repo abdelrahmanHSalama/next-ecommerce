@@ -73,7 +73,10 @@ export default async function ProductPage({
                         <p>{product.description}</p>
                         <div className="flex gap-4">
                             <WishlistButton className="w-full" style="full" />
-                            <CartButton className="w-full" />
+                            <CartButton
+                                className="w-full"
+                                productId={product.id}
+                            />
                         </div>
                         <div className="flex w-full justify-between">
                             {features.map((feature, index) => (

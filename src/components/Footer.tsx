@@ -1,11 +1,79 @@
 import React from "react";
+import { Icon } from "@iconify/react";
 
 const Footer = () => {
-  return (
-    <footer className="py-2 w-5/6 flex mx-auto justify-center">
-      <p>Next ECommerce | {new Date().getFullYear()}</p>
-    </footer>
-  );
+    const servicesLinks = [
+        "Order Tracking",
+        "Shipping & Delivery",
+        "Returns & Exchanges",
+        "Gift Cards",
+        "Size Guide",
+        "Product Warranty",
+        "Store Locator",
+        "Affiliate Program",
+    ];
+    const customerSupportLinks = [
+        "Help Center",
+        "Contact Us",
+        "FAQs",
+        "Payment Options",
+        "Account Login / Signup",
+        "Report an Issue",
+        "Live Chat Support",
+    ];
+    return (
+        <footer className="py-8 w-full bg-black text-sm">
+            <div className="w-5/6 mx-auto">
+                <div className="flex">
+                    <div className="flex flex-col flex-2">
+                        <p className="text-2xl font-bold text-white">
+                            ECommerce
+                        </p>
+                        <p className="text-[#CFCFCF] mt-2">
+                            Shop your favorite products online with ease –
+                            discover great deals, fast delivery, and a smooth,
+                            secure shopping experience all in one place.
+                        </p>
+                    </div>
+                    <div className="flex flex-col flex-1">
+                        <p className="text-xl font-bold text-white">Services</p>
+                        <ul className="list-none">
+                            {servicesLinks.map((link, index) => {
+                                return (
+                                    <li
+                                        className="text-[#CFCFCF] mt-2"
+                                        key={index}
+                                    >
+                                        {link}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                    <div className="flex flex-col flex-1">
+                        <p className="text-xl font-bold text-white">
+                            Customer Support
+                        </p>
+                        <ul className="list-none">
+                            {customerSupportLinks.map((link, index) => {
+                                return (
+                                    <li
+                                        className="text-[#CFCFCF] mt-2"
+                                        key={index}
+                                    >
+                                        {link}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                </div>
+                <p className="text-white">
+                    &copy; {new Date().getFullYear()} ECommerce
+                </p>
+            </div>
+        </footer>
+    );
 };
 
 export default Footer;

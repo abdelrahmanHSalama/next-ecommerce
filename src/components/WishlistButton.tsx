@@ -14,7 +14,7 @@ const WishlistButton = ({
             {style === "full" ? (
                 "Add to Wishlist"
             ) : (
-                <Icon icon="lucide:shopping-cart" width="24" height="24" />
+                <Icon icon="lucide:heart" width="18" height="18" />
             )}
         </button>
     );

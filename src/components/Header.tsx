@@ -10,6 +10,7 @@ const Header = () => {
             <Link href="/">
                 <h1 className="text-2xl font-bold">ECommerce</h1>
             </Link>
+            <Navbar />
             <div className="relative">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2 text-[#989898]">
                     <Icon icon="lucide:search" width="20" height="20" />
@@ -20,15 +21,22 @@ const Header = () => {
                     className="rounded-md p-2 pl-9 bg-[#F5F5F5] w-64"
                 />
             </div>
-            <Navbar />
-            <div className="flex gap-6">
-                <Icon icon="lucide:heart" width="24" height="24" />
-                <Link href="/cart">
-                    <Icon icon="lucide:shopping-cart" width="24" height="24" />
+            <div className="flex gap-2 items-center">
+                <Link
+                    href="/wishlist"
+                    className="flex items-center gap-2 hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
+                >
+                    <Icon icon="lucide:heart" width="20" height="20" /> Wishlist
                 </Link>
-                <Icon icon="lucide:user" width="24" height="24" />
+                <Link
+                    href="/cart"
+                    className="flex items-center gap-2 hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
+                >
+                    <Icon icon="lucide:shopping-cart" width="20" height="20" />{" "}
+                    Cart
+                </Link>
+                <AuthButton />
             </div>
-            <AuthButton />
         </header>
     );
 };

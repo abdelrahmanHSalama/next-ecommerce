@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 type ProductImage = {
     url: string;
@@ -13,11 +14,10 @@ export default function ProductImages({
     productImages: ProductImage[];
 }) {
     const [selectedImage, setSelectedImage] = useState(0);
-    console.log(productImages);
 
     return (
         <div className="flex flex-1 gap-2">
-            <div className="flex flex-col gap-2 flex-1">
+            <div className="flex flex-col gap-2 flex-1 justify-center">
                 {productImages.map((image, index) => (
                     <img
                         key={index}
@@ -32,11 +32,13 @@ export default function ProductImages({
                     ></img>
                 ))}
             </div>
-            <div className="flex-5">
-                <img
+            <div className="flex-5 relative h-[500px]">
+                <Image
                     src={productImages[selectedImage].url}
                     alt={productImages[selectedImage].description}
-                ></img>
+                    fill
+                    className="object-cover"
+                ></Image>
             </div>
         </div>
     );

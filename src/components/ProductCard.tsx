@@ -1,27 +1,34 @@
 import CartButton from "./CartButton";
 import WishlistButton from "./WishlistButton";
+import Link from "next/link";
+import Image from "next/image";
 
 type ProductProps = {
     image: string;
     title: string;
     price: number;
+    id: number;
 };
 
-const ProductCard = ({ image, title, price }: ProductProps) => {
+const ProductCard = ({ image, title, price, id }: ProductProps) => {
     return (
-        <div className="bg-[#F6F6F6] p-4 rounded-md flex flex-col gap-2 h-full">
-            <img
-                src={image}
-                alt={title}
-                className="w-full h-40 object-contain"
-            />
-            <h3 className="font-semibold text-center h-full flex justify-center items-center">
-                {title}
-            </h3>
-            <p className="font-bold text-center">${price}</p>
-            <div className="flex justify-between w-3/4 mx-auto gap-2">
+        <div className="bg-[#F6F6F6] p-4 rounded-md flex flex-col gap-4">
+            <Link href={`products/${id}`} className="flex flex-col gap-2">
+                <Image
+                    src={image}
+                    alt={title}
+                    width={180}
+                    height={180}
+                    className="mx-auto"
+                ></Image>
+                <h3 className="font-semibold text-center flex justify-center items-center">
+                    {title}
+                </h3>
+                <p className="font-bold text-center">${price}</p>
+            </Link>
+            <div className="flex justify-between mx-auto gap-2">
                 <WishlistButton style="mini" />
-                <CartButton className="flex-1" />
+                <CartButton className="min-content" productId={id} />
             </div>
         </div>
     );
