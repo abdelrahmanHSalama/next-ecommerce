@@ -36,8 +36,8 @@ export default function ProductsList({
         staleTime: 1000 * 60,
     });
 
-    if (isLoading) return <p>Loading...</p>; // Show loading state while fetching
-    if (isError) return <p>Error fetching products.</p>; // Handle errors
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>Error fetching products.</p>;
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

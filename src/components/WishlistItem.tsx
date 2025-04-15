@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
 import Image from "next/image";
 
 interface Product {
@@ -10,16 +10,10 @@ interface Product {
     thumbnail: string;
 }
 
-const WishlistItem = ({
-    product,
-    quantity,
-}: {
-    product: Product;
-    quantity: number;
-}) => {
-    const removeFromCart = useCartStore((state) => state.removeFromCart);
-    const increaseQuantity = useCartStore((state) => state.increaseQuantity);
-    const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+const WishlistItem = ({ product }: { product: Product }) => {
+    const removeFromWishlist = useWishlistStore(
+        (state) => state.removeFromWishlist
+    );
 
     if (!product) return <div>Loading...</div>;
 
@@ -35,12 +29,15 @@ const WishlistItem = ({
             <div className="flex-1">
                 <h2>{product.title}</h2>
             </div>
-            <button
-                className="p-2 cursor-pointer"
-                onClick={() => removeFromCart(product.id)}
-            >
-                ×
-            </button>
+            <div className="flex items-center flex-1 justify-end">
+                <p className="">${product.price}</p>
+                <button
+                    className="p-2 cursor-pointer"
+                    onClick={() => removeFromWishlist(product.id)}
+                >
+                    ×
+                </button>
+            </div>
         </div>
     );
 };

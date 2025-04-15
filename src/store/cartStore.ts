@@ -23,9 +23,7 @@ export const useCartStore = create<CartState>()(
 
             addToCart: (id: number) => {
                 set((state) => {
-                    const itemExists = state.cart.some(
-                        (item) => item.id === id
-                    );
+                    const itemExists = get().isInCart(id);
 
                     if (itemExists) {
                         return state;

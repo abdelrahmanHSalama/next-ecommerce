@@ -10,33 +10,40 @@ interface WishlistState {
     addToWishlist: (id: number) => void;
     removeFromWishlist: (id: number) => void;
     clearWishlist: () => void;
-    isInWishlist: () => void;
+    isInWishlist: (id: number) => boolean;
 }
 
-export const useWishlistState = create<WishlistState>()(
+export const useWishlistStore = create<WishlistState>()(
     persist<WishlistState>(
         (set, get) => ({
             wishlist: [],
 
             addToWishlist: (id: number) => {
                 set((state) => {
-                    const itemExists = state.wishlist.some((item) => item.id === id);
+                    const itemExists = get().isInWishlist(id);
 
                     if (itemExists) {
                         return state;
                     } else {
                         return {
-                            wishlist: [...state.wishlist, {id}]
-                        }
+                            wishlist: [...state.wishlist, { id }],
+                        };
                     }
                 });
             },
 
-            removeFromWishlist,
+            removeFromWishlist: (id: number) => {
+                set((state) => ({
+                    wishlist: state.wishlist.filter((item) => item.id !== id),
+                }));
+            },
 
-            clearWishlist,
+            clearWishlist: () => set({ wishlist: [] }),
 
-            isInWishlist
-        }), {name: "wishlist-state"}
-    );
+            isInWishlist: (id: number) => {
+                return get().wishlist.some((item) => item.id === id);
+            },
+        }),
+        { name: "wishlist-state" }
+    )
 );

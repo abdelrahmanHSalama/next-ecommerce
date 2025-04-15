@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar01";
 import { Icon } from "@iconify/react";
 import AuthButton from "./AuthButton";
+import Navbar02 from "./Navbar02";
 
 const Header = () => {
     return (
@@ -22,19 +23,7 @@ const Header = () => {
                 />
             </div>
             <div className="flex gap-2 items-center">
-                <Link
-                    href="/wishlist"
-                    className="flex items-center gap-2 hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
-                >
-                    <Icon icon="lucide:heart" width="20" height="20" /> Wishlist
-                </Link>
-                <Link
-                    href="/cart"
-                    className="flex items-center gap-2 hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
-                >
-                    <Icon icon="lucide:shopping-cart" width="20" height="20" />{" "}
-                    Cart
-                </Link>
+                <Navbar02 />
                 <AuthButton />
             </div>
         </header>

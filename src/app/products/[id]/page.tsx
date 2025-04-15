@@ -72,7 +72,11 @@ export default async function ProductPage({
                         <p className="text-[1.5rem]">${product.price}</p>
                         <p>{product.description}</p>
                         <div className="flex gap-4">
-                            <WishlistButton className="w-full" style="full" />
+                            <WishlistButton
+                                className="w-full"
+                                style="full"
+                                productId={product.id}
+                            />
                             <CartButton
                                 className="w-full"
                                 productId={product.id}

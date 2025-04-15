@@ -38,7 +38,7 @@ const CartItem = ({
             <div className="flex items-center flex-1 justify-evenly">
                 <div className="flex items-center">
                     <button
-                        className="p-2 cursor-pointer"
+                        className="m-1 cursor-pointer hover:bg-[#D9D9D9] rounded-full h-[40px] w-[40px]"
                         onClick={() => decreaseQuantity(product.id)}
                     >
                         -
@@ -47,7 +47,7 @@ const CartItem = ({
                         {quantity}
                     </div>
                     <button
-                        className="p-2 cursor-pointer"
+                        className="m-1 cursor-pointer hover:bg-[#D9D9D9] rounded-full h-[40px] w-[40px]"
                         onClick={() => increaseQuantity(product.id)}
                     >
                         +
@@ -55,7 +55,7 @@ const CartItem = ({
                 </div>
                 <p className="">${product.price}</p>
                 <button
-                    className="p-2 cursor-pointer"
+                    className="m-1 cursor-pointer hover:bg-[#D9D9D9] rounded-full h-[40px] w-[40px]"
                     onClick={() => removeFromCart(product.id)}
                 >
                     ×

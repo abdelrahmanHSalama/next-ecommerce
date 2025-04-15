@@ -17,7 +17,6 @@ interface Product {
 const Cart = () => {
     const cart = useCartStore((state) => state.cart);
     const [productsInCart, setProductsInCart] = useState<Product[]>([]);
-    console.log("cart:", cart);
 
     const fetchProductDetails = async (id: string) => {
         try {
@@ -44,8 +43,6 @@ const Cart = () => {
         };
         fetchCartProducts();
     }, [cart]);
-
-    console.log("productsInCart:", productsInCart);
 
     const subtotal = cart.reduce((total, item) => {
         const product = productsInCart.find(

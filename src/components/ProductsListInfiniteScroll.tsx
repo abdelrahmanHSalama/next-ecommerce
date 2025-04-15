@@ -13,62 +13,46 @@ interface Product {
 }
 
 export default function ProductsListInfiniteScroll({
-    limit,
-    initialProducts,
-    total,
+    selectedCategory,
 }: {
-    limit: number;
-    initialProducts: Product[];
-    total: number;
+    selectedCategory: string;
 }) {
     const {
-        data = initialProducts,
+        data,
         isLoading,
         isError,
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
     } = useInfiniteQuery({
-        queryKey: ["products"],
+        queryKey: ["products", selectedCategory],
         queryFn: async ({ pageParam = 0 }) => {
-            const { data } = await axios.get(
-                `https://dummyjson.com/products?limit=${limit}&skip=${pageParam}`
-            );
+            const apiLink =
+                selectedCategory === "all"
+                    ? `https://dummyjson.com/products?limit=15&skip=${pageParam}`
+                    : `https://dummyjson.com/products/category/${selectedCategory}`;
+            const { data } = await axios.get(apiLink);
             return { products: data.products, total: data.total };
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             const totalFetched = allPages.reduce(
-                (acc, page) => acc + page.products.length,
+                (sum, page) => sum + page.products.length,
                 0
             );
-            return totalFetched < (total ?? 0) ? totalFetched : undefined;
+            return totalFetched < lastPage.total ? totalFetched : undefined;
         },
-        initialData: initialProducts
-            ? {
-                  pages: [
-                      {
-                          products: initialProducts,
-                          total: total ?? initialProducts.length,
-                      },
-                  ],
-                  pageParams: [0],
-              }
-            : undefined,
         staleTime: 1000 * 60,
     });
 
-    if (isLoading) return <p>Loading...</p>;
-    if (isError) return <p>Error fetching products.</p>;
+    if (isLoading) return <p>Loading Products...</p>;
+    if (isError) return <p>Error Fetching Products...</p>;
 
-    const products =
-        data && "pages" in data
-            ? data.pages.flatMap((page) => page.products ?? [])
-            : [];
+    const products = data?.pages.flatMap((page) => page.products) || [];
 
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {products.map((product: Product) => (
                     <ProductCard
                         image={product.thumbnail}

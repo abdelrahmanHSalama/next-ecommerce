@@ -27,7 +27,7 @@ const ProductCard = ({ image, title, price, id }: ProductProps) => {
                 <p className="font-bold text-center">${price}</p>
             </Link>
             <div className="flex justify-between mx-auto gap-2">
-                <WishlistButton style="mini" />
+                <WishlistButton style="mini" productId={id} />
                 <CartButton className="min-content" productId={id} />
             </div>
         </div>

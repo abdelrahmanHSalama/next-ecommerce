@@ -10,7 +10,7 @@ const navLinks = [
     { href: "/about", label: "About" },
 ];
 
-const Navbar = () => {
+const Navbar01 = () => {
     const pathname = usePathname();
 
     return (
@@ -38,4 +38,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Navbar01;

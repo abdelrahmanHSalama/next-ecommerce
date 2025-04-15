@@ -1,27 +1,31 @@
+"use client";
+
+import ProductsFilters from "@/components/ProductsFilters";
 import ProductsListInfiniteScroll from "@/components/ProductsListInfiniteScroll";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-    title: "Products | Next ECommerce",
-};
+export default function Products() {
+    const [selectedCategory, setSelectedCategory] = useState("all");
 
-async function fetchProducts() {
-    const { data } = await axios.get("https://dummyjson.com/products?limit=20");
-    return data;
-}
-
-export default async function Products() {
-    const data = await fetchProducts();
+    useEffect(() => {
+        console.log("👨🏻 Selected Category:", selectedCategory);
+    }, [selectedCategory]);
 
     return (
         <>
-            <div className="mx-auto my-4 w-5/6">
-                <ProductsListInfiniteScroll
-                    initialProducts={data.products}
-                    limit={20}
-                    total={data.total}
-                />
+            <div className="mx-auto my-4 w-5/6 grid grid-cols-4 gap-4">
+                <div className="col-span-1">
+                    <ProductsFilters
+                        selectedCategory={selectedCategory}
+                        setSelectedCategory={setSelectedCategory}
+                    />
+                </div>
+                <div className="col-span-3">
+                    <ProductsListInfiniteScroll
+                        selectedCategory={selectedCategory}
+                    />
+                </div>
             </div>
         </>
     );

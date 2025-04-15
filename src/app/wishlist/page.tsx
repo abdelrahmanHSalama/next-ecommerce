@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from "react";
 import WishlistItem from "@/components/WishlistItem";
-import { useCartStore } from "@/store/cartStore";
+import { useWishlistStore } from "@/store/wishlistStore";
 import axios from "axios";
 
 interface Product {
@@ -14,10 +14,9 @@ interface Product {
     thumbnail: string;
 }
 
-const Cart = () => {
-    const cart = useCartStore((state) => state.cart);
-    const [productsInCart, setProductsInCart] = useState<Product[]>([]);
-    console.log("cart:", cart);
+const Wishlist = () => {
+    const wishlist = useWishlistStore((state) => state.wishlist);
+    const [productsInWishlist, setProductsInWishlist] = useState<Product[]>([]);
 
     const fetchProductDetails = async (id: string) => {
         try {
@@ -36,45 +35,25 @@ const Cart = () => {
     };
 
     useEffect(() => {
-        const fetchCartProducts = async () => {
+        const fetchWishlistProducts = async () => {
             const fetchResults = await Promise.all(
-                cart.map((item) => fetchProductDetails(item.id.toString()))
+                wishlist.map((item) => fetchProductDetails(item.id.toString()))
             );
-            setProductsInCart(fetchResults.filter(Boolean) as Product[]);
+            setProductsInWishlist(fetchResults.filter(Boolean) as Product[]);
         };
-        fetchCartProducts();
-    }, [cart]);
-
-    console.log("productsInCart:", productsInCart);
-
-    const subtotal = cart.reduce((total, item) => {
-        const product = productsInCart.find(
-            (product) => product.id === item.id
-        );
-        if (!product) return total;
-        return total + product.price * item.quantity;
-    }, 0);
-
-    const delivery = 0;
-    const total = subtotal + delivery;
-
-    const formattedSubtotal = subtotal.toFixed(2);
-    const formattedTotal = total.toFixed(2);
+        fetchWishlistProducts();
+    }, [wishlist]);
 
     return (
         <div className="mx-auto my-4 w-5/6">
             <h1 className="text-xl font-bold">Wishlist</h1>
             <div className="flex gap-8 mt-2 flex-col">
-                {cart.map((item) => {
-                    const product = productsInCart.find(
+                {wishlist.map((item) => {
+                    const product = productsInWishlist.find(
                         (product) => product.id === item.id
                     );
                     return product ? (
-                        <WishlistItem
-                            product={product}
-                            quantity={item.quantity}
-                            key={product.id}
-                        />
+                        <WishlistItem product={product} key={product.id} />
                     ) : null;
                 })}
             </div>
@@ -82,4 +61,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default Wishlist;
