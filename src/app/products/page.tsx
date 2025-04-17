@@ -7,6 +7,8 @@ import axios from "axios";
 
 export default function Products() {
     const [selectedCategory, setSelectedCategory] = useState("all");
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(10000);
 
     useEffect(() => {
         console.log("👨🏻 Selected Category:", selectedCategory);
@@ -19,11 +21,19 @@ export default function Products() {
                     <ProductsFilters
                         selectedCategory={selectedCategory}
                         setSelectedCategory={setSelectedCategory}
+                        minPrice={minPrice}
+                        maxPrice={maxPrice}
+                        setMinPrice={setMinPrice}
+                        setMaxPrice={setMaxPrice}
                     />
                 </div>
                 <div className="col-span-3">
                     <ProductsListInfiniteScroll
                         selectedCategory={selectedCategory}
+                        minPrice={minPrice}
+                        setMinPrice={setMinPrice}
+                        maxPrice={maxPrice}
+                        setMaxPrice={setMaxPrice}
                     />
                 </div>
             </div>

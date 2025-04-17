@@ -10,7 +10,14 @@ const fetchCategories = async () => {
     return categories;
 };
 
-const ProductsFilters = ({ selectedCategory, setSelectedCategory }) => {
+const ProductsFilters = ({
+    selectedCategory,
+    setSelectedCategory,
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
+}) => {
     const [categories, setCategories] = useState([
         {
             slug: "all",
@@ -37,9 +44,9 @@ const ProductsFilters = ({ selectedCategory, setSelectedCategory }) => {
 
     return (
         <div>
-            <p className="font-bold text-lg mb-1">Filter Products</p>
-            <p className="font-bold mb-1">Categories</p>
-            <ul className="list-none">
+            <p className="font-bold text-lg mb-2">Filter Products</p>
+            <p className="font-bold mb-0.5">Categories</p>
+            <ul className="list-none mb-2">
                 {categories.map((category, i) => (
                     <li key={i} className="mb-0.5">
                         <label className="cursor-pointer">
@@ -56,6 +63,23 @@ const ProductsFilters = ({ selectedCategory, setSelectedCategory }) => {
                     </li>
                 ))}
             </ul>
+            <div>
+                <p className="font-bold mb-1">Price Range</p>
+                <input
+                    type="text"
+                    placeholder="Min Price"
+                    className="border border-[#989898] p-1 rounded-md mb-1"
+                    value={minPrice === 0 ? "" : minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                ></input>
+                <input
+                    type="text"
+                    placeholder="Max Price"
+                    className="border border-[#989898] p-1 rounded-md"
+                    value={maxPrice === 10000 ? "" : maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                ></input>
+            </div>
         </div>
     );
 };

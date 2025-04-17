@@ -2,6 +2,8 @@
 
 import { Icon } from "@iconify/react";
 import { useWishlistStore } from "@/store/wishlistStore";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const WishlistButton = ({
     className,
@@ -19,11 +21,19 @@ const WishlistButton = ({
     );
     const isInWishlist = useWishlistStore((state) => state.isInWishlist);
 
+    const router = useRouter();
+    const { data: authData, status: authStatus } = useSession();
+    const isLoggedIn = authStatus === "authenticated";
+
     const handleClick = () => {
-        if (isInWishlist(productId)) {
-            removeFromWishlist(productId);
+        if (isLoggedIn) {
+            if (isInWishlist(productId)) {
+                removeFromWishlist(productId);
+            } else {
+                addToWishlist(productId);
+            }
         } else {
-            addToWishlist(productId);
+            router.push("/");
         }
     };
 
