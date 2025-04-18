@@ -6,6 +6,7 @@ import { useWishlistStore } from "@/store/wishlistStore";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Icon } from "@iconify/react";
 
 const Auth = () => {
     const { data: session } = useSession();
@@ -41,13 +42,15 @@ const Auth = () => {
         signOut();
     };
 
-    console.log(session);
-
     if (session) {
         return (
             <div className="relative" ref={dropdownRef}>
                 <button
-                    className="p-2 rounded-md hover:bg-[#F5F5F5] transition duration-250 cursor-pointer flex items-center"
+                    className={`p-2 cursor-pointer flex items-center ${
+                        dropdown
+                            ? "bg-[#D4D4D4] rounded-t-md"
+                            : "rounded-md hover:bg-[#F5F5F5]"
+                    }`}
                     onClick={() => setDropdown(!dropdown)}
                 >
                     <Image
@@ -60,17 +63,16 @@ const Auth = () => {
                     <p className="p-2">{session.user?.name}</p>
                 </button>
                 {dropdown && (
-                    <div className="absolute z-100">
-                        <ul className="flex flex-col bg-[#F5F5F5] rounded-md">
+                    <div className="absolute z-100 w-full">
+                        <ul className="flex flex-col bg-[#D4D4D4] rounded-b-md">
                             <li
-                                className="p-2 cursor-pointer hover:bg-[#D4D4D4] rounded-t-md"
-                                onClick={() => router.push("/")}
+                                className="p-2 cursor-pointer hover:font-bold"
+                                onClick={() => router.push("/account")}
                             >
-                                Account Settings
+                                Account
                             </li>
-                            <div className="bg-[#D4D4D4] h-0.25"></div>
                             <li
-                                className="p-2 cursor-pointer hover:bg-[#D4D4D4] rounded-b-md"
+                                className="p-2 cursor-pointer rounded-b-md hover:font-bold"
                                 onClick={handleSignout}
                             >
                                 Signout
@@ -84,10 +86,10 @@ const Auth = () => {
 
     return (
         <button
-            className="p-2 rounded-md hover:bg-[#F5F5F5] transition duration-250 cursor-pointer"
+            className="p-2 rounded-md hover:bg-[#F5F5F5] transition duration-250 cursor-pointer flex gap-2"
             onClick={() => signIn("google")}
         >
-            Signin
+            <Icon icon="lucide:user" width="20" height="20" /> Signin
         </button>
     );
 };

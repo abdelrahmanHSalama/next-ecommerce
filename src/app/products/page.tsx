@@ -10,10 +10,6 @@ export default function Products() {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(10000);
 
-    useEffect(() => {
-        console.log("👨🏻 Selected Category:", selectedCategory);
-    }, [selectedCategory]);
-
     return (
         <>
             <div className="mx-auto my-4 w-5/6 grid grid-cols-4 gap-4">

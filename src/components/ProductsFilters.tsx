@@ -13,8 +13,6 @@ const fetchCategories = async () => {
 const ProductsFilters = ({
     selectedCategory,
     setSelectedCategory,
-    minPrice,
-    maxPrice,
     setMinPrice,
     setMaxPrice,
 }) => {
@@ -37,6 +35,21 @@ const ProductsFilters = ({
 
         getCategories();
     }, []);
+
+    const [tempMinPrice, setTempMinPrice] = useState("");
+    const [tempMaxPrice, setTempMaxPrice] = useState("");
+
+    const applyFilters = () => {
+        setMinPrice(Number(tempMinPrice) || 0);
+        setMaxPrice(Number(tempMaxPrice) || 10000);
+    };
+
+    const clearFilters = () => {
+        setMinPrice(0);
+        setMaxPrice(10000);
+        setTempMinPrice("");
+        setTempMaxPrice("");
+    };
 
     if (isLoading) {
         return <p>Loading Categories...</p>;
@@ -63,22 +76,34 @@ const ProductsFilters = ({
                     </li>
                 ))}
             </ul>
-            <div>
+            <div className="flex flex-col">
                 <p className="font-bold mb-1">Price Range</p>
                 <input
                     type="text"
                     placeholder="Min Price"
-                    className="border border-[#989898] p-1 rounded-md mb-1"
-                    value={minPrice === 0 ? "" : minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
+                    className="border border-[#989898] p-1 rounded-md mb-1 w-max"
+                    value={tempMinPrice}
+                    onChange={(e) => setTempMinPrice(e.target.value)}
                 ></input>
                 <input
                     type="text"
                     placeholder="Max Price"
-                    className="border border-[#989898] p-1 rounded-md"
-                    value={maxPrice === 10000 ? "" : maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
+                    className="border border-[#989898] p-1 rounded-md mb-1 w-max"
+                    value={tempMaxPrice}
+                    onChange={(e) => setTempMaxPrice(e.target.value)}
                 ></input>
+                <button
+                    className="border border-[#989898] p-1 rounded-md cursor-pointer w-max"
+                    onClick={applyFilters}
+                >
+                    Apply Filters
+                </button>
+                <button
+                    className="border border-[#989898] p-1 rounded-md cursor-pointer w-max"
+                    onClick={clearFilters}
+                >
+                    Clear Filters
+                </button>
             </div>
         </div>
     );

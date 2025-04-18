@@ -3,8 +3,7 @@
 import { useCartStore } from "@/store/cartStore";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import SigninModal from "./SigninModal";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const CartButton = ({
     className,
@@ -22,7 +21,7 @@ const CartButton = ({
     const { data: authData, status: authStatus } = useSession();
     const isLoggedIn = authStatus === "authenticated";
 
-    const [signinModalOpen, setSigninModalOpen] = useState(false);
+    const currentPath = usePathname();
 
     const handleClick = () => {
         if (isLoggedIn) {
@@ -32,7 +31,9 @@ const CartButton = ({
                 addToCart(productId);
             }
         } else {
-            setSigninModalOpen(true);
+            router.push(
+                `/account?callbackUrl=${encodeURIComponent(currentPath)}`
+            );
         }
     };
 
@@ -44,7 +45,6 @@ const CartButton = ({
             >
                 {isInCart(productId) ? "Remove from Cart" : "Add to Cart"}
             </button>
-            <SigninModal isOpen={signinModalOpen}></SigninModal>
         </>
     );
 };

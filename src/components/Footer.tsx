@@ -29,7 +29,7 @@ const Footer = () => {
                         <p className="text-2xl font-bold text-white">
                             ECommerce
                         </p>
-                        <p className="text-[#CFCFCF] mt-2">
+                        <p className="text-[#CFCFCF] mt-2 w-[90%]">
                             Shop your favorite products online with ease –
                             discover great deals, fast delivery, and a smooth,
                             secure shopping experience all in one place.
