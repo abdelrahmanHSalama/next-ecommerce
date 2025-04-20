@@ -40,7 +40,7 @@ const CartButton = ({
     return (
         <>
             <button
-                className={`text-sm text-white bg-black border-2 border-black rounded-md p-2 hover:cursor-pointer hover:text-black hover:bg-white transition duration-250 ${className}`}
+                className={`text-white bg-black border-2 border-black rounded-md p-2 hover:cursor-pointer hover:text-black hover:bg-white transition duration-250 ${className}`}
                 onClick={handleClick}
             >
                 {isInCart(productId) ? "Remove from Cart" : "Add to Cart"}

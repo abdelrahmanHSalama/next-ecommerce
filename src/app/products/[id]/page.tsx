@@ -2,7 +2,7 @@ import axios from "axios";
 import ProductNotFound from "@/components/ProductNotFound";
 import CartButton from "@/components/CartButton";
 import WishlistButton from "@/components/WishlistButton";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import ProductImages from "@/components/ProductImages";
 
 const fetchProductDetails = async (id: string) => {

@@ -44,7 +44,11 @@ const WishlistButton = ({
 
     return (
         <button
-            className={`bg-white border-2 border-black rounded-md p-2 hover:cursor-pointer hover:bg-black hover:text-white transition duration-250 ${className}`}
+            className={` ${className} cursor-pointer transition duration-250 ${
+                style === "mini"
+                    ? "absolute right-[5%] top-[5%] text-[#909090] hover:text-black"
+                    : "bg-white border-2 border-black rounded-md p-2 hover:bg-black hover:text-white"
+            }`}
             onClick={handleClick}
         >
             {style === "full" ? (
@@ -54,9 +58,9 @@ const WishlistButton = ({
                     "Add to Wishlist"
                 )
             ) : isInWishlist(productId) ? (
-                <Icon icon="lucide:heart-off" width="18" height="18" />
+                <Icon icon="lucide:heart-off" width="24" height="24" />
             ) : (
-                <Icon icon="lucide:heart" width="18" height="18" />
+                <Icon icon="lucide:heart" width="24" height="24" />
             )}
         </button>
     );

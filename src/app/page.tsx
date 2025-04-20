@@ -1,7 +1,8 @@
-import ProductsList from "@/components/ProductsList";
+import HomeProductsList from "@/components/HomeProductsList";
 import axios from "axios";
 import type { Metadata } from "next";
 import Image from "next/image";
+import CategoriesCarousel from "@/components/CategoriesCarousel";
 
 export const metadata: Metadata = {
     title: "Home | Next ECommerce",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 async function fetchProducts() {
     const { data: products } = await axios.get(
-        "https://dummyjson.com/products?limit=4"
+        "https://dummyjson.com/products?limit=8&skip=100"
     );
     return products.products;
 }
@@ -28,8 +29,12 @@ export default async function Home() {
             </div>
             {/* TODO: Revamp the Hero Section */}
             <div className="mx-auto my-4 w-5/6">
-                <h3 className="mb-2 text-xl font-bold">Featured Products</h3>
-                <ProductsList initialProducts={products} limit={4} />
+                <section id="categories" className="mb-4">
+                    <CategoriesCarousel />
+                </section>
+                <section id="featured-products">
+                    <HomeProductsList />
+                </section>
             </div>
         </>
     );
