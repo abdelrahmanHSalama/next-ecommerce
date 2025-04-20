@@ -48,14 +48,19 @@ const Wishlist = () => {
         <div className="mx-auto my-4 w-5/6">
             <h1 className="text-xl font-bold">Wishlist</h1>
             <div className="flex gap-8 mt-2 flex-col">
-                {wishlist.map((item) => {
-                    const product = productsInWishlist.find(
-                        (product) => product.id === item.id
-                    );
-                    return product ? (
-                        <WishlistItem product={product} key={product.id} />
-                    ) : null;
-                })}
+                {wishlist.length > 0
+                    ? wishlist.map((item) => {
+                          const product = productsInWishlist.find(
+                              (product) => product.id === item.id
+                          );
+                          return product ? (
+                              <WishlistItem
+                                  product={product}
+                                  key={product.id}
+                              />
+                          ) : null;
+                      })
+                    : "There are no items in your wishlist! 😢"}
             </div>
         </div>
     );

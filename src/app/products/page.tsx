@@ -3,12 +3,20 @@
 import ProductsFilters from "@/components/ProductsFilters";
 import ProductsListInfiniteScroll from "@/components/ProductsListInfiniteScroll";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import axios from "axios";
 
 export default function Products() {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(10000);
+
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const qCategory = searchParams.get("category") || "all";
+        setSelectedCategory(qCategory);
+    }, []);
 
     return (
         <>

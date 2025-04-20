@@ -63,18 +63,20 @@ const Cart = () => {
             <h1 className="text-xl font-bold">Shopping Cart</h1>
             <div className="flex gap-8 mt-2">
                 <div className="flex-2 flex flex-col">
-                    {cart.map((item) => {
-                        const product = productsInCart.find(
-                            (product) => product.id === item.id
-                        );
-                        return product ? (
-                            <CartItem
-                                product={product}
-                                quantity={item.quantity}
-                                key={product.id}
-                            />
-                        ) : null;
-                    })}
+                    {cart.length > 0
+                        ? cart.map((item) => {
+                              const product = productsInCart.find(
+                                  (product) => product.id === item.id
+                              );
+                              return product ? (
+                                  <CartItem
+                                      product={product}
+                                      quantity={item.quantity}
+                                      key={product.id}
+                                  />
+                              ) : null;
+                          })
+                        : "There are no items in your cart! 😢"}
                 </div>
                 <div className="flex-1 border border-[#EBEBEB] rounded-md p-8 flex flex-col gap-4">
                     <h1 className="text-xl font-bold">Order Summary</h1>

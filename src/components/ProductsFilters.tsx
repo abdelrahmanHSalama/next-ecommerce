@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Icon } from "@iconify/react";
 
 const fetchCategories = async () => {
     const { data: categories } = await axios.get(
@@ -25,6 +26,11 @@ const ProductsFilters = ({
     ]);
 
     const [isLoading, setIsLoading] = useState(true);
+    const [folded, setFolded] = useState(true);
+
+    const handleFold = () => {
+        setFolded(!folded);
+    };
 
     useEffect(() => {
         const getCategories = async () => {
@@ -60,46 +66,72 @@ const ProductsFilters = ({
             <p className="font-bold text-lg mb-2">Filter Products</p>
             <p className="font-bold mb-0.5">Categories</p>
             <ul className="list-none mb-2">
-                {categories.map((category, i) => (
-                    <li key={i} className="mb-0.5">
-                        <label className="cursor-pointer">
-                            <input
-                                type="radio"
-                                name="category"
-                                checked={selectedCategory === category.slug}
-                                onChange={() =>
-                                    setSelectedCategory(category.slug)
-                                }
-                            ></input>{" "}
-                            {category.name}
-                        </label>
-                    </li>
-                ))}
+                {(folded ? categories.slice(0, 6) : categories).map(
+                    (category, i) => (
+                        <li key={i} className="mb-0.5">
+                            <label className="cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="category"
+                                    checked={selectedCategory === category.slug}
+                                    onChange={() =>
+                                        setSelectedCategory(category.slug)
+                                    }
+                                ></input>{" "}
+                                {category.name}
+                            </label>
+                        </li>
+                    )
+                )}
+                <div
+                    onClick={handleFold}
+                    className="cursor-pointer hover:font-bold inline"
+                >
+                    {folded ? (
+                        <p className="flex gap-1">
+                            <Icon
+                                icon="lucide:arrow-down"
+                                width="20"
+                                height="20"
+                            />{" "}
+                            Show All Categories
+                        </p>
+                    ) : (
+                        <p className="flex gap-1">
+                            <Icon
+                                icon="lucide:arrow-up"
+                                width="20"
+                                height="20"
+                            />{" "}
+                            Show Less Categories
+                        </p>
+                    )}
+                </div>
             </ul>
             <div className="flex flex-col">
                 <p className="font-bold mb-1">Price Range</p>
                 <input
                     type="text"
                     placeholder="Min Price"
-                    className="border border-[#989898] p-1 rounded-md mb-1 w-max"
+                    className="border p-1 rounded-md mb-1 w-max"
                     value={tempMinPrice}
                     onChange={(e) => setTempMinPrice(e.target.value)}
                 ></input>
                 <input
                     type="text"
                     placeholder="Max Price"
-                    className="border border-[#989898] p-1 rounded-md mb-1 w-max"
+                    className="border p-1 rounded-md mb-1 w-max"
                     value={tempMaxPrice}
                     onChange={(e) => setTempMaxPrice(e.target.value)}
                 ></input>
                 <button
-                    className="border border-[#989898] p-1 rounded-md cursor-pointer w-max"
+                    className="border hover:bg-black hover:text-white p-1 rounded-md cursor-pointer w-max mb-1"
                     onClick={applyFilters}
                 >
                     Apply Filters
                 </button>
                 <button
-                    className="border border-[#989898] p-1 rounded-md cursor-pointer w-max"
+                    className="border hover:bg-black hover:text-white p-1 rounded-md cursor-pointer w-max mb-1"
                     onClick={clearFilters}
                 >
                     Clear Filters

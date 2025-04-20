@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const WishlistButton = ({
     className,
@@ -25,6 +26,8 @@ const WishlistButton = ({
     const { data: authData, status: authStatus } = useSession();
     const isLoggedIn = authStatus === "authenticated";
 
+    const currentPath = usePathname();
+
     const handleClick = () => {
         if (isLoggedIn) {
             if (isInWishlist(productId)) {
@@ -33,7 +36,9 @@ const WishlistButton = ({
                 addToWishlist(productId);
             }
         } else {
-            router.push("/");
+            router.push(
+                `/account?callbackUrl=${encodeURIComponent(currentPath)}`
+            );
         }
     };
 
