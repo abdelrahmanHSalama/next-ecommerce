@@ -2,6 +2,7 @@
 
 import { useWishlistStore } from "@/store/wishlistStore";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Product {
     id: number;
@@ -18,17 +19,19 @@ const WishlistItem = ({ product }: { product: Product }) => {
     if (!product) return <div>Loading...</div>;
 
     return (
-        <div className="flex items-center justify-between">
-            <Image
-                width={200}
-                height={200}
-                className="object-cover"
-                src={product.thumbnail}
-                alt={product.title}
-            ></Image>
-            <div className="flex-1">
+        <div className="flex items-center justify-between border-2 border-[#f5f5f5] rounded-md mb-4 p-2">
+            <Link href={`products/${product.id}`}>
+                <Image
+                    width={100}
+                    height={100}
+                    className="mr-2 ml-1"
+                    src={product.thumbnail}
+                    alt={product.title}
+                ></Image>
+            </Link>
+            <Link href={`products/${product.id}`} className="flex-1">
                 <h2>{product.title}</h2>
-            </div>
+            </Link>
             <div className="flex items-center flex-1 justify-end">
                 <p className="">${product.price}</p>
                 <button

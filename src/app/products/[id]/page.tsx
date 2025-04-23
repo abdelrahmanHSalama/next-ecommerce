@@ -31,8 +31,8 @@ export async function generateMetadata({
 
     return {
         title: product
-            ? `${product.title} | Next ECommerce`
-            : "Product Not Found | Next ECommerce",
+            ? `${product.title} | NextShop`
+            : "Product Not Found | NextShop",
         description: product
             ? product.description
             : "This product could not be found.",
@@ -56,7 +56,7 @@ export default async function ProductPage({
     return (
         <>
             {product ? (
-                <div className="flex w-5/6 gap-4">
+                <div className="flex w-5/6 gap-4 my-8">
                     <ProductImages
                         productImages={product.images.map(
                             (image: string, index: number) => ({

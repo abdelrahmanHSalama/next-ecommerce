@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
     return (
         <div className="mx-auto my-4 w-5/6">
-            <h2 className="text-2xl font-bold mb-4">Next-ECommerce</h2>
+            <h2 className="text-2xl font-bold mb-4">NextShop</h2>
             <p className="mb-4">
                 Your ultimate destination for the latest in tech gadgets,
                 accessories, and innovations!
@@ -12,8 +12,8 @@ const About = () => {
             <section className="mb-4">
                 <h2 className="text-xl font-bold">Our Story</h2>
                 <p>
-                    At <strong>Next-ECommerce</strong>, we believe in bringing
-                    the most exciting, cutting-edge products to tech enthusiasts
+                    At <strong>NextShop</strong>, we believe in bringing the
+                    most exciting, cutting-edge products to tech enthusiasts
                     around the world. Our journey began in 2025 with a small
                     team of passionate tech lovers who wanted to make the newest
                     gadgets accessible to everyone. Today, we’ve grown into a

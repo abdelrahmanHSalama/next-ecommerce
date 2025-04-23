@@ -1,4 +1,4 @@
-## Next-ECommerce
+## NextShop
 
 ECommerce Website built using Next.js and TypeScript.
 

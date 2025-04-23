@@ -4,6 +4,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import ProductsList from "./ProductsList";
 import { useState } from "react";
+import Loading from "./Loading";
 
 interface Product {
     id: number;
@@ -34,8 +35,6 @@ export default function HomeProductsList() {
         staleTime: 1000 * 60,
     });
 
-    console.log(productsTab);
-
     return (
         <div>
             <ul className="flex gap-4 mb-4">
@@ -54,7 +53,9 @@ export default function HomeProductsList() {
                 ))}
             </ul>
             {isLoading ? (
-                <p>Loading...</p>
+                <div className="w-full flex justify-center">
+                    <Loading />
+                </div>
             ) : isError ? (
                 <p>Error...</p>
             ) : (

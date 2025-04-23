@@ -19,7 +19,7 @@ export default function ProductImages({
         <div className="flex flex-1 gap-2">
             <div className="flex flex-col gap-2 flex-1 justify-center">
                 {productImages.map((image, index) => (
-                    <img
+                    <Image
                         key={index}
                         src={image.url}
                         alt={image.description}
@@ -29,17 +29,21 @@ export default function ProductImages({
                                 ? ""
                                 : "grayscale opacity-50"
                         }`}
-                    ></img>
+                        width={80}
+                        height={80}
+                        placeholder="blur"
+                        blurDataURL="/placeholder.png"
+                    ></Image>
                 ))}
             </div>
-            <div className="flex-5 relative h-[500px]">
-                <Image
-                    src={productImages[selectedImage].url}
-                    alt={productImages[selectedImage].description}
-                    fill
-                    className="object-cover"
-                ></Image>
-            </div>
+            <Image
+                src={productImages[selectedImage].url}
+                alt={productImages[selectedImage].description}
+                width={500}
+                height={500}
+                placeholder="blur"
+                blurDataURL="/placeholder.png"
+            ></Image>
         </div>
     );
 }

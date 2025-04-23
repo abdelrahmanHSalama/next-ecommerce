@@ -1,46 +1,15 @@
-"use client";
+import React from "react";
+import ProductsPageClient from "./ProductsPageClient";
+import type { Metadata } from "next";
 
-import ProductsFilters from "@/components/ProductsFilters";
-import ProductsListInfiniteScroll from "@/components/ProductsListInfiniteScroll";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import axios from "axios";
+export const metadata: Metadata = {
+    title: "Products | NextShop",
+    description:
+        "Shop your favorite products online with ease – discover great deals, fast delivery, and a smooth, secure shopping experience all in one place.",
+};
 
-export default function Products() {
-    const [selectedCategory, setSelectedCategory] = useState("all");
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(10000);
+const ProductsPageServer = () => {
+    return <ProductsPageClient />;
+};
 
-    const searchParams = useSearchParams();
-
-    useEffect(() => {
-        const qCategory = searchParams.get("category") || "all";
-        setSelectedCategory(qCategory);
-    }, []);
-
-    return (
-        <>
-            <div className="mx-auto my-4 w-5/6 grid grid-cols-4 gap-4">
-                <div className="col-span-1">
-                    <ProductsFilters
-                        selectedCategory={selectedCategory}
-                        setSelectedCategory={setSelectedCategory}
-                        minPrice={minPrice}
-                        maxPrice={maxPrice}
-                        setMinPrice={setMinPrice}
-                        setMaxPrice={setMaxPrice}
-                    />
-                </div>
-                <div className="col-span-3">
-                    <ProductsListInfiniteScroll
-                        selectedCategory={selectedCategory}
-                        minPrice={minPrice}
-                        setMinPrice={setMinPrice}
-                        maxPrice={maxPrice}
-                        setMaxPrice={setMaxPrice}
-                    />
-                </div>
-            </div>
-        </>
-    );
-}
+export default ProductsPageServer;

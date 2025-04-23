@@ -2,7 +2,15 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loading from "./Loading";
 import { Icon } from "@iconify/react";
+
+interface ProductsFilterProps {
+    selectedCategory: string;
+    setSelectedCategory: (value: string) => void;
+    setMinPrice: (value: number) => void;
+    setMaxPrice: (value: number) => void;
+}
 
 const fetchCategories = async () => {
     const { data: categories } = await axios.get(
@@ -16,7 +24,7 @@ const ProductsFilters = ({
     setSelectedCategory,
     setMinPrice,
     setMaxPrice,
-}) => {
+}: ProductsFilterProps) => {
     const [categories, setCategories] = useState([
         {
             slug: "all",
@@ -57,85 +65,92 @@ const ProductsFilters = ({
         setTempMaxPrice("");
     };
 
-    if (isLoading) {
-        return <p>Loading Categories...</p>;
-    }
-
     return (
         <div>
-            <p className="font-bold text-lg mb-2">Filter Products</p>
-            <p className="font-bold mb-0.5">Categories</p>
-            <ul className="list-none mb-2">
-                {(folded ? categories.slice(0, 6) : categories).map(
-                    (category, i) => (
-                        <li key={i} className="mb-0.5">
-                            <label className="cursor-pointer">
-                                <input
-                                    type="radio"
-                                    name="category"
-                                    checked={selectedCategory === category.slug}
-                                    onChange={() =>
-                                        setSelectedCategory(category.slug)
-                                    }
-                                ></input>{" "}
-                                {category.name}
-                            </label>
-                        </li>
-                    )
-                )}
-                <div
-                    onClick={handleFold}
-                    className="cursor-pointer hover:font-bold inline"
-                >
-                    {folded ? (
-                        <p className="flex gap-1">
-                            <Icon
-                                icon="lucide:arrow-down"
-                                width="20"
-                                height="20"
-                            />{" "}
-                            Show All Categories
-                        </p>
-                    ) : (
-                        <p className="flex gap-1">
-                            <Icon
-                                icon="lucide:arrow-up"
-                                width="20"
-                                height="20"
-                            />{" "}
-                            Show Less Categories
-                        </p>
-                    )}
+            <p className="text-xl mb-2">Filter Products</p>
+            <p className="text-lg mb-2">Categories</p>
+            {isLoading ? (
+                <div className="w-full flex justify-center">
+                    <Loading />
                 </div>
-            </ul>
+            ) : (
+                <ul className="list-none mb-2">
+                    {(folded ? categories.slice(0, 6) : categories).map(
+                        (category, i) => (
+                            <li key={i} className="mb-1">
+                                <label className="cursor-pointer flex items-center gap-1 w-max">
+                                    <input
+                                        type="radio"
+                                        name="category"
+                                        checked={
+                                            selectedCategory === category.slug
+                                        }
+                                        onChange={() =>
+                                            setSelectedCategory(category.slug)
+                                        }
+                                        className="appearance-none border-2 border-black rounded-full w-4 h-4 checked:bg-black cursor-pointer"
+                                    ></input>
+                                    <p>{category.name}</p>
+                                </label>
+                            </li>
+                        )
+                    )}
+                    <div
+                        onClick={handleFold}
+                        className="cursor-pointer hover:font-bold"
+                    >
+                        {folded ? (
+                            <div className="flex items-center gap-1">
+                                <Icon
+                                    icon="lucide:circle-plus"
+                                    width="16"
+                                    height="16"
+                                />
+                                <p>Show All Categories</p>
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-1">
+                                <Icon
+                                    icon="lucide:circle-minus"
+                                    width="16"
+                                    height="16"
+                                />
+                                <p>Show Less Categories</p>
+                            </div>
+                        )}
+                    </div>
+                </ul>
+            )}
             <div className="flex flex-col">
-                <p className="font-bold mb-1">Price Range</p>
+                <p className="text-lg mb-2">Price Range</p>
                 <input
                     type="text"
                     placeholder="Min Price"
-                    className="border p-1 rounded-md mb-1 w-max"
+                    className="border p-1 rounded-md mb-2 w-max"
                     value={tempMinPrice}
                     onChange={(e) => setTempMinPrice(e.target.value)}
                 ></input>
                 <input
                     type="text"
                     placeholder="Max Price"
-                    className="border p-1 rounded-md mb-1 w-max"
+                    className="border p-1 rounded-md mb-2 w-max"
                     value={tempMaxPrice}
                     onChange={(e) => setTempMaxPrice(e.target.value)}
                 ></input>
-                <button
-                    className="border hover:bg-black hover:text-white p-1 rounded-md cursor-pointer w-max mb-1"
-                    onClick={applyFilters}
-                >
-                    Apply Filters
-                </button>
-                <button
-                    className="border hover:bg-black hover:text-white p-1 rounded-md cursor-pointer w-max mb-1"
-                    onClick={clearFilters}
-                >
-                    Clear Filters
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+                        onClick={applyFilters}
+                    >
+                        Apply
+                    </button>
+                    <button
+                        className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+                        onClick={clearFilters}
+                    >
+                        Clear
+                    </button>
+                </div>
             </div>
         </div>
     );

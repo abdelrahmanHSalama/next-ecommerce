@@ -27,10 +27,10 @@ const categories = [
 ];
 
 const CategoriesCarousel = () => {
-    const scrollRef = useRef(null);
-    const cardRef = useRef(null);
-    const lastCardRef = useRef(null);
+    const scrollRef = useRef<HTMLDivElement | null>(null);
+    const cardRef = useRef<HTMLAnchorElement | null>(null);
     const [cardWidth, setCardWidth] = useState(0);
+    const [isScrolling, setIsScrolling] = useState(false);
 
     useEffect(() => {
         if (cardRef.current) {
@@ -44,17 +44,24 @@ const CategoriesCarousel = () => {
     }, []);
 
     const scrollLeft = () => {
-        scrollRef.current.scrollBy({ left: -cardWidth, behavior: "smooth" });
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({
+                left: -cardWidth,
+                behavior: "smooth",
+            });
+        }
     };
 
     const scrollRight = () => {
-        scrollRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+        }
     };
 
     return (
         <>
-            <div className="flex justify-between">
-                <h2 className="mb-2 text-xl font-bold">Browse by Category</h2>
+            <div className="flex justify-between mb-4">
+                <h2 className="text-xl font-bold">Browse by Category</h2>
                 <div className="flex gap-1">
                     <Icon
                         icon="lucide:chevron-left"
@@ -76,7 +83,7 @@ const CategoriesCarousel = () => {
                 {categories.map((category, i) => (
                     <Link
                         ref={i === 0 ? cardRef : null}
-                        className="bg-[#F6F6F6] rounded-md grow-0 shrink-0 basis-[calc((100%-40px)/6)] flex flex-col p-4 items-center justify-center text-center"
+                        className="bg-[#F6F6F6] rounded-md grow-0 shrink-0 basis-[calc((100%-56px)/8)] flex flex-col px-4 py-16 items-center justify-center text-center"
                         key={i}
                         href={`/products?category=${category.slug}`}
                     >

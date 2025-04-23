@@ -12,7 +12,7 @@ type ProductProps = {
 
 const ProductCard = ({ image, title, price, id }: ProductProps) => {
     return (
-        <div className="bg-[#F6F6F6] p-4 rounded-md flex flex-col gap-4 relative">
+        <div className="bg-[#F6F6F6] p-8 rounded-md flex flex-col gap-4 relative">
             <Link href={`products/${id}`} className="flex flex-col gap-2">
                 <Image
                     src={image}
@@ -21,16 +21,13 @@ const ProductCard = ({ image, title, price, id }: ProductProps) => {
                     height={180}
                     className="mx-auto"
                 ></Image>
-                <h3 className="font-semibold text-center flex justify-center items-center">
+                <h3 className="font-semibold text-center flex justify-center items-center h-[2rem] mb-1">
                     {title}
                 </h3>
                 <p className="font-bold text-center">${price}</p>
             </Link>
             <CartButton className="min-content mx-auto" productId={id} />
             <WishlistButton style="mini" productId={id} />
-            {/* <div className="flex justify-between  gap-2">
-                
-            </div> */}
         </div>
     );
 };

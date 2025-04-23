@@ -6,18 +6,18 @@ import Search from "./Search";
 
 const Header = () => {
     return (
-        <div className="shadow-md">
-            <header className="py-2 w-5/6 flex mx-auto items-center justify-between h-[72px]">
+        <header className="w-full h-[80px] shadow-md flex justify-center items-center">
+            <div className="w-5/6 flex items-center justify-between">
                 <Link href="/">
-                    <h1 className="text-2xl font-bold">Next:ECommerce</h1>
+                    <h1 className="text-2xl font-bold">NextShop</h1>
                 </Link>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-4 items-center">
                     <Navbar />
                     <Search />
                     <Auth />
                 </div>
-            </header>
-        </div>
+            </div>
+        </header>
     );
 };
 

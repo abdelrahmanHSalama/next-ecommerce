@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "@iconify/react";
+import Link from "next/link";
 
 const Footer = () => {
     const servicesLinks = [
@@ -22,12 +22,12 @@ const Footer = () => {
         "Live Chat Support",
     ];
     return (
-        <footer className="py-8 w-full bg-black text-sm">
+        <footer className="py-12 w-full bg-black text-sm">
             <div className="w-5/6 mx-auto">
                 <div className="flex">
                     <div className="flex flex-col flex-2">
                         <p className="text-2xl font-bold text-white">
-                            ECommerce
+                            NextShop
                         </p>
                         <p className="text-[#CFCFCF] mt-2 w-[90%]">
                             Shop your favorite products online with ease –
@@ -44,7 +44,7 @@ const Footer = () => {
                                         className="text-[#CFCFCF] mt-2"
                                         key={index}
                                     >
-                                        {link}
+                                        <Link href="/about">{link}</Link>
                                     </li>
                                 );
                             })}
@@ -61,7 +61,7 @@ const Footer = () => {
                                         className="text-[#CFCFCF] mt-2"
                                         key={index}
                                     >
-                                        {link}
+                                        <Link href="/about">{link}</Link>
                                     </li>
                                 );
                             })}
@@ -69,7 +69,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <p className="text-white">
-                    &copy; {new Date().getFullYear()} ECommerce
+                    &copy; {new Date().getFullYear()} NextShop
                 </p>
             </div>
         </footer>

@@ -12,7 +12,7 @@ const Navbar = () => {
         (state) => state.wishlist.length
     );
     return (
-        <nav className="flex gap-2">
+        <nav className="flex gap-4">
             <Link
                 href="/products"
                 className="flex items-center gap-2 hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"

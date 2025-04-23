@@ -1,7 +1,9 @@
 "use client";
+
 import axios from "axios";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ProductCard from "./ProductCard";
+import Loading from "./Loading";
 
 interface Product {
     id: number;
@@ -38,7 +40,7 @@ export default function ProductsListInfiniteScroll({
                     ? isFiltering
                         ? `https://dummyjson.com/products?limit=100`
                         : `https://dummyjson.com/products?limit=15&skip=${pageParam}`
-                    : `https://dummyjson.com/products/category/${selectedCategory}`;
+                    : `https://dummyjson.com/products/category/${selectedCategory}?limit=15&skip=${pageParam}`;
             const { data } = await axios.get(apiLink);
             return { products: data.products, total: data.total };
         },
@@ -53,7 +55,12 @@ export default function ProductsListInfiniteScroll({
         staleTime: 1000 * 60,
     });
 
-    if (isLoading) return <p>Loading Products...</p>;
+    if (isLoading)
+        return (
+            <div className="w-full flex justify-center">
+                <Loading />
+            </div>
+        );
     if (isError) return <p>Error Fetching Products...</p>;
 
     const products = data?.pages.flatMap((page) => page.products) || [];
@@ -64,35 +71,37 @@ export default function ProductsListInfiniteScroll({
 
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {filteredProducts.map((product: Product) => (
-                    <ProductCard
-                        image={product.thumbnail}
-                        title={product.title}
-                        price={product.price}
-                        id={product.id}
-                        key={product.id}
-                    />
-                ))}
-            </div>
+            {filteredProducts.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                    {filteredProducts.map((product: Product) => (
+                        <ProductCard
+                            image={product.thumbnail}
+                            title={product.title}
+                            price={product.price}
+                            id={product.id}
+                            key={product.id}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <p>No Products Found in Selected Category! 😭</p>
+            )}
 
-            {isFiltering
-                ? ""
-                : hasNextPage && (
-                      <div className="flex justify-center">
-                          <button
-                              onClick={() => fetchNextPage()}
-                              disabled={isFetchingNextPage}
-                              className="p-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer mt-4 rounded-md"
-                          >
-                              {isFetchingNextPage ? (
-                                  <div className="loader w-4 h-4 border-[#989898]"></div>
-                              ) : (
-                                  "Show More"
-                              )}
-                          </button>
-                      </div>
-                  )}
+            {hasNextPage && (
+                <div className="flex justify-center">
+                    <button
+                        onClick={() => fetchNextPage()}
+                        disabled={isFetchingNextPage}
+                        className="px-4 py-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer rounded-md"
+                    >
+                        {isFetchingNextPage ? (
+                            <div className="loader w-4 h-4 border-[#989898]"></div>
+                        ) : (
+                            "Show More"
+                        )}
+                    </button>
+                </div>
+            )}
         </>
     );
 }
