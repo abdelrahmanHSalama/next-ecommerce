@@ -31,8 +31,6 @@ export default function ProductImages({
                         }`}
                         width={80}
                         height={80}
-                        placeholder="blur"
-                        blurDataURL="/placeholder.png"
                     ></Image>
                 ))}
             </div>
@@ -41,8 +39,6 @@ export default function ProductImages({
                 alt={productImages[selectedImage].description}
                 width={500}
                 height={500}
-                placeholder="blur"
-                blurDataURL="/placeholder.png"
             ></Image>
         </div>
     );

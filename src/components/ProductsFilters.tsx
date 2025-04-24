@@ -6,154 +6,137 @@ import Loading from "./Loading";
 import { Icon } from "@iconify/react";
 
 interface ProductsFilterProps {
-    selectedCategory: string;
-    setSelectedCategory: (value: string) => void;
-    setMinPrice: (value: number) => void;
-    setMaxPrice: (value: number) => void;
+  selectedCategory: string;
+  setSelectedCategory: (value: string) => void;
+  setMinPrice: (value: number) => void;
+  setMaxPrice: (value: number) => void;
 }
 
 const fetchCategories = async () => {
-    const { data: categories } = await axios.get(
-        "https://dummyjson.com/products/categories"
-    );
-    return categories;
+  const { data: categories } = await axios.get(
+    "https://dummyjson.com/products/categories"
+  );
+  return categories;
 };
 
 const ProductsFilters = ({
-    selectedCategory,
-    setSelectedCategory,
-    setMinPrice,
-    setMaxPrice,
+  selectedCategory,
+  setSelectedCategory,
+  setMinPrice,
+  setMaxPrice,
 }: ProductsFilterProps) => {
-    const [categories, setCategories] = useState([
-        {
-            slug: "all",
-            name: "All",
-            url: "https://dummyjson.com/products?limit=15",
-        },
-    ]);
+  const [categories, setCategories] = useState([
+    {
+      slug: "all",
+      name: "All",
+      url: "https://dummyjson.com/products?limit=15",
+    },
+  ]);
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [folded, setFolded] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [folded, setFolded] = useState(true);
 
-    const handleFold = () => {
-        setFolded(!folded);
+  const handleFold = () => {
+    setFolded(!folded);
+  };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const fetchedCategories = await fetchCategories();
+      setCategories([...categories, ...fetchedCategories]);
+      setIsLoading(false);
     };
 
-    useEffect(() => {
-        const getCategories = async () => {
-            const fetchedCategories = await fetchCategories();
-            setCategories([...categories, ...fetchedCategories]);
-            setIsLoading(false);
-        };
+    getCategories();
+  }, [categories]);
 
-        getCategories();
-    }, []);
+  const [tempMinPrice, setTempMinPrice] = useState("");
+  const [tempMaxPrice, setTempMaxPrice] = useState("");
 
-    const [tempMinPrice, setTempMinPrice] = useState("");
-    const [tempMaxPrice, setTempMaxPrice] = useState("");
+  const applyFilters = () => {
+    setMinPrice(Number(tempMinPrice) || 0);
+    setMaxPrice(Number(tempMaxPrice) || 10000);
+  };
 
-    const applyFilters = () => {
-        setMinPrice(Number(tempMinPrice) || 0);
-        setMaxPrice(Number(tempMaxPrice) || 10000);
-    };
+  const clearFilters = () => {
+    setMinPrice(0);
+    setMaxPrice(10000);
+    setTempMinPrice("");
+    setTempMaxPrice("");
+  };
 
-    const clearFilters = () => {
-        setMinPrice(0);
-        setMaxPrice(10000);
-        setTempMinPrice("");
-        setTempMaxPrice("");
-    };
-
-    return (
-        <div>
-            <p className="text-xl mb-2">Filter Products</p>
-            <p className="text-lg mb-2">Categories</p>
-            {isLoading ? (
-                <div className="w-full flex justify-center">
-                    <Loading />
-                </div>
-            ) : (
-                <ul className="list-none mb-2">
-                    {(folded ? categories.slice(0, 6) : categories).map(
-                        (category, i) => (
-                            <li key={i} className="mb-1">
-                                <label className="cursor-pointer flex items-center gap-1 w-max">
-                                    <input
-                                        type="radio"
-                                        name="category"
-                                        checked={
-                                            selectedCategory === category.slug
-                                        }
-                                        onChange={() =>
-                                            setSelectedCategory(category.slug)
-                                        }
-                                        className="appearance-none border-2 border-black rounded-full w-4 h-4 checked:bg-black cursor-pointer"
-                                    ></input>
-                                    <p>{category.name}</p>
-                                </label>
-                            </li>
-                        )
-                    )}
-                    <div
-                        onClick={handleFold}
-                        className="cursor-pointer hover:font-bold"
-                    >
-                        {folded ? (
-                            <div className="flex items-center gap-1">
-                                <Icon
-                                    icon="lucide:circle-plus"
-                                    width="16"
-                                    height="16"
-                                />
-                                <p>Show All Categories</p>
-                            </div>
-                        ) : (
-                            <div className="flex items-center gap-1">
-                                <Icon
-                                    icon="lucide:circle-minus"
-                                    width="16"
-                                    height="16"
-                                />
-                                <p>Show Less Categories</p>
-                            </div>
-                        )}
-                    </div>
-                </ul>
-            )}
-            <div className="flex flex-col">
-                <p className="text-lg mb-2">Price Range</p>
-                <input
-                    type="text"
-                    placeholder="Min Price"
-                    className="border p-1 rounded-md mb-2 w-max"
-                    value={tempMinPrice}
-                    onChange={(e) => setTempMinPrice(e.target.value)}
-                ></input>
-                <input
-                    type="text"
-                    placeholder="Max Price"
-                    className="border p-1 rounded-md mb-2 w-max"
-                    value={tempMaxPrice}
-                    onChange={(e) => setTempMaxPrice(e.target.value)}
-                ></input>
-                <div className="flex gap-2">
-                    <button
-                        className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
-                        onClick={applyFilters}
-                    >
-                        Apply
-                    </button>
-                    <button
-                        className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
-                        onClick={clearFilters}
-                    >
-                        Clear
-                    </button>
-                </div>
-            </div>
+  return (
+    <div>
+      <p className="text-xl mb-2">Filter Products</p>
+      <p className="text-lg mb-2">Categories</p>
+      {isLoading ? (
+        <div className="w-full flex justify-center">
+          <Loading />
         </div>
-    );
+      ) : (
+        <ul className="list-none mb-2">
+          {(folded ? categories.slice(0, 6) : categories).map((category, i) => (
+            <li key={i} className="mb-1">
+              <label className="cursor-pointer flex items-center gap-1 w-max">
+                <input
+                  type="radio"
+                  name="category"
+                  checked={selectedCategory === category.slug}
+                  onChange={() => setSelectedCategory(category.slug)}
+                  className="appearance-none border-2 border-black rounded-full w-4 h-4 checked:bg-black cursor-pointer"
+                ></input>
+                <p>{category.name}</p>
+              </label>
+            </li>
+          ))}
+          <div onClick={handleFold} className="cursor-pointer hover:font-bold">
+            {folded ? (
+              <div className="flex items-center gap-1">
+                <Icon icon="lucide:circle-plus" width="16" height="16" />
+                <p>Show All Categories</p>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1">
+                <Icon icon="lucide:circle-minus" width="16" height="16" />
+                <p>Show Less Categories</p>
+              </div>
+            )}
+          </div>
+        </ul>
+      )}
+      <div className="flex flex-col">
+        <p className="text-lg mb-2">Price Range</p>
+        <input
+          type="text"
+          placeholder="Min Price"
+          className="border p-1 rounded-md mb-2 w-max"
+          value={tempMinPrice}
+          onChange={(e) => setTempMinPrice(e.target.value)}
+        ></input>
+        <input
+          type="text"
+          placeholder="Max Price"
+          className="border p-1 rounded-md mb-2 w-max"
+          value={tempMaxPrice}
+          onChange={(e) => setTempMaxPrice(e.target.value)}
+        ></input>
+        <div className="flex gap-2">
+          <button
+            className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+            onClick={applyFilters}
+          >
+            Apply
+          </button>
+          <button
+            className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+            onClick={clearFilters}
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ProductsFilters;

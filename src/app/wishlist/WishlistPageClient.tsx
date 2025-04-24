@@ -1,5 +1,3 @@
-// TODO: Work in Progress
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,6 +14,7 @@ interface Product {
 
 const WishlistPageClient = () => {
     const wishlist = useWishlistStore((state) => state.wishlist);
+    const clearWishlist = useWishlistStore((state) => state.clearWishlist);
     const [productsInWishlist, setProductsInWishlist] = useState<Product[]>([]);
 
     const fetchProductDetails = async (id: string) => {
@@ -46,7 +45,19 @@ const WishlistPageClient = () => {
 
     return (
         <div className="mx-auto my-4 w-5/6">
-            <h2 className="text-xl font-bold mb-4">Wishlist</h2>
+            <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-xl font-bold">Wishlist</h2>
+                <button
+                    className={
+                        wishlist.length > 0
+                            ? "text-white bg-red-500 border-2 border-red-500 rounded-md p-2 cursor-pointer hover:text-red-500 hover:bg-white transition duration-250"
+                            : "cursor-not-allowed bg-[#D4D4D4] border-[#D4D4D4] rounded-md p-2 transition duration-250"
+                    }
+                    onClick={clearWishlist}
+                >
+                    Clear Wishlist
+                </button>
+            </div>
             <div className="flex flex-col">
                 {wishlist.length > 0
                     ? wishlist.map((item) => {

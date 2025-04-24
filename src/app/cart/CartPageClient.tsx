@@ -14,6 +14,7 @@ interface Product {
 
 const CartPageClient = () => {
     const cart = useCartStore((state) => state.cart);
+    const clearCart = useCartStore((state) => state.clearCart);
     const [productsInCart, setProductsInCart] = useState<Product[]>([]);
 
     const fetchProductDetails = async (id: string) => {
@@ -104,12 +105,18 @@ const CartPageClient = () => {
                         <p>Total</p>
                         <p>${formattedTotal}</p>
                     </div>
+                    <button className="text-white bg-black border-2 border-black rounded-md p-2 cursor-pointer hover:text-black hover:bg-white transition duration-250">
+                        Checkout
+                    </button>
                     <button
                         className={
-                            "text-white bg-black border-2 border-black rounded-md p-2 hover:cursor-pointer hover:text-black hover:bg-white transition duration-250"
+                            cart.length > 0
+                                ? "text-white bg-red-500 border-2 border-red-500 rounded-md p-2 cursor-pointer hover:text-red-500 hover:bg-white transition duration-250"
+                                : "cursor-not-allowed bg-[#D4D4D4] border-[#D4D4D4] rounded-md p-2 transition duration-250"
                         }
+                        onClick={clearCart}
                     >
-                        Checkout
+                        Clear Cart
                     </button>
                 </div>
             </div>

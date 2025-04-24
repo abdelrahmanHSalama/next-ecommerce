@@ -6,13 +6,13 @@ import { Icon } from "@iconify/react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
-const Navbar = () => {
+const Navbar = ({ version }: { version: string }) => {
     const cartStateLength = useCartStore((state) => state.cart.length);
     const wishlistStateLength = useWishlistStore(
         (state) => state.wishlist.length
     );
     return (
-        <nav className="flex gap-4">
+        <nav className={version === "small" ? "flex flex-col" : "flex gap-4"}>
             <Link
                 href="/products"
                 className="flex items-center gap-2 hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"

@@ -92,14 +92,14 @@ export default async function Home() {
                     </div>
                 </div>
             </div>
-            <div className="mx-auto w-5/6">
+            {/* <div className="mx-auto w-5/6">
                 <section id="categories" className="mb-12">
                     <CategoriesCarousel />
                 </section>
                 <section id="featured-products" className="mb-12">
                     <HomeProductsList />
                 </section>
-            </div>
+            </div> */}
         </>
     );
 }

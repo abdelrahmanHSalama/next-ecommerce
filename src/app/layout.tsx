@@ -23,10 +23,10 @@ export default function RootLayout({
                 <SessionProviderWrapper>
                     <ReactQueryProvider>
                         <Header />
-                        <main className="flex-1 flex flex-col items-center">
+                        {/* <main className="flex-1 flex flex-col items-center">
                             {children}
                         </main>
-                        <Footer />
+                        <Footer /> */}
                     </ReactQueryProvider>
                 </SessionProviderWrapper>
             </body>
