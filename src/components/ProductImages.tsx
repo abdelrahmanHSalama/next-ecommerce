@@ -16,8 +16,8 @@ export default function ProductImages({
     const [selectedImage, setSelectedImage] = useState(0);
 
     return (
-        <div className="flex flex-1 gap-2">
-            <div className="flex flex-col gap-2 flex-1 justify-center">
+        <div className="flex lg:flex-row flex-col-reverse lg:flex-1 lg:gap-2">
+            <div className="flex lg:flex-col flex-row lg:gap-2 gap-4 lg:flex-1 justify-center">
                 {productImages.map((image, index) => (
                     <Image
                         key={index}

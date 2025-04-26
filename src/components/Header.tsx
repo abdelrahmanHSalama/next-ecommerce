@@ -15,21 +15,23 @@ const Header = () => {
                     <h1 className="text-2xl font-bold">NextShop</h1>
                 </Link>
                 <button
-                    className="text-2xl font-bold"
+                    className="text-2xl font-bold cursor-pointer"
                     aria-label={hamburgerMenu ? "Close menu" : "Open menu"}
                     onClick={() => setHamburgerMenu(!hamburgerMenu)}
                 >
-                    {hamburgerMenu ? "X" : "☰"}
+                    {hamburgerMenu ? "×" : "☰"}
                 </button>
             </div>
 
-            {hamburgerMenu && (
-                <div className="lg:hidden flex flex-col gap-2 px-4 pb-2">
-                    <Navbar version="small" />
-                    <Search />
-                    <Auth />
-                </div>
-            )}
+            <div
+                className={`lg:hidden flex flex-col gap-2 px-4 pb-2 transition-all duration-250 ease-in-out overflow-hidden ${
+                    hamburgerMenu ? "max-h-[1000px]" : "max-h-0"
+                }`}
+            >
+                <Navbar version="small" />
+                <Search />
+                <Auth />
+            </div>
 
             <div className="hidden lg:flex w-5/6 items-center justify-between mx-auto">
                 <Link href="/">

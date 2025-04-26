@@ -6,46 +6,48 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 const Account = () => {
-  const { data: session } = useSession();
+    const { data: session } = useSession();
 
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "/";
 
-  console.log(session);
+    console.log(session);
 
-  if (session) {
-    return (
-      <div className="mx-auto my-4 w-5/6">
-        <h2 className="mb-2 text-xl font-bold">Account</h2>
-        <div className="flex items-center gap-2">
-          <Image
-            src={session.user?.image || "/avatar.png"}
-            width={100}
-            height={100}
-            className="aspect-auto rounded-full object-cover"
-            alt={`${session.user?.name}'s Image`}
-          ></Image>
-          <div>
-            <p className="text-xl font-bold">{session.user?.name}</p>
-            <p>{session.user?.email}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    if (session) {
+        return (
+            <div className="mx-auto my-4 w-5/6">
+                <h2 className="mb-2 text-xl font-bold">Account</h2>
+                <div className="flex items-center gap-2">
+                    <Image
+                        src={session.user?.image || "/avatar.png"}
+                        width={100}
+                        height={100}
+                        className="aspect-auto rounded-full object-cover"
+                        alt={`${session.user?.name}'s Image`}
+                    ></Image>
+                    <div>
+                        <p className="text-xl font-bold">
+                            {session.user?.name}
+                        </p>
+                        <p>{session.user?.email}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
-  if (!session) {
-    return (
-      <div className="py-4 w-5/6 flex mx-auto justify-center items-center flex-grow">
-        <button
-          className="text-white bg-black border-2 border-black rounded-md py-2 px-4 hover:cursor-pointer hover:text-black hover:bg-white transition duration-250"
-          onClick={() => signIn("google", { callbackUrl })}
-        >
-          Sign In with Google
-        </button>
-      </div>
-    );
-  }
+    if (!session) {
+        return (
+            <div className="py-4 w-5/6 flex mx-auto justify-center items-center flex-grow">
+                <button
+                    className="text-white bg-black border-2 border-black rounded-md py-2 px-4 hover:text-black hover:bg-white active:text-black active:bg-white transition duration-250"
+                    onClick={() => signIn("google", { callbackUrl })}
+                >
+                    Sign In with Google
+                </button>
+            </div>
+        );
+    }
 };
 
 export default Account;

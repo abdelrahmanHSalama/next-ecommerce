@@ -17,6 +17,11 @@ const Auth = () => {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
+    const handleAccountClick = () => {
+        router.push("/account");
+        setDropdown(false);
+    };
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -49,7 +54,7 @@ const Auth = () => {
                     className={`p-2 cursor-pointer flex items-center w-full ${
                         dropdown
                             ? "bg-[#D4D4D4] rounded-t-md"
-                            : "rounded-md hover:bg-[#F5F5F5]"
+                            : "rounded-md hover:bg-[#F5F5F5] active:bg-[#F5F5F5]"
                     }`}
                     onClick={() => setDropdown(!dropdown)}
                 >
@@ -63,16 +68,16 @@ const Auth = () => {
                     <p className="p-2">{session.user?.name}</p>
                 </button>
                 {dropdown && (
-                    <div className="absolute z-100 w-full">
+                    <div className="w-full lg:absolute lg:z-100">
                         <ul className="flex flex-col bg-[#D4D4D4] rounded-b-md">
                             <li
-                                className="p-2 cursor-pointer hover:font-bold"
-                                onClick={() => router.push("/account")}
+                                className="p-2 cursor-pointer hover:font-bold active:font-bold"
+                                onClick={handleAccountClick}
                             >
                                 Account
                             </li>
                             <li
-                                className="p-2 cursor-pointer rounded-b-md hover:font-bold"
+                                className="p-2 cursor-pointer rounded-b-md hover:font-bold active:font-bold"
                                 onClick={handleSignout}
                             >
                                 Signout
@@ -86,7 +91,7 @@ const Auth = () => {
 
     return (
         <button
-            className="p-2 rounded-md hover:bg-[#F5F5F5] transition duration-250 cursor-pointer flex gap-2"
+            className="p-2 rounded-md hover:bg-[#F5F5F5] active:bg-[#F5F5F5] transition duration-250 cursor-pointer flex gap-2"
             onClick={() => signIn("google")}
         >
             <Icon icon="lucide:user" width="20" height="20" /> Signin

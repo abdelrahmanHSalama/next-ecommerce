@@ -72,7 +72,7 @@ export default function ProductsListInfiniteScroll({
     return (
         <>
             {filteredProducts.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4 lg:mb-8">
                     {filteredProducts.map((product: Product) => (
                         <ProductCard
                             image={product.thumbnail}
@@ -92,7 +92,7 @@ export default function ProductsListInfiniteScroll({
                     <button
                         onClick={() => fetchNextPage()}
                         disabled={isFetchingNextPage}
-                        className="px-4 py-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer rounded-md"
+                        className="px-4 py-2 border-2 border-black hover:text-white hover:bg-black active:text-white active:bg-black transition duration-250 cursor-pointer rounded-md"
                     >
                         {isFetchingNextPage ? (
                             <div className="loader w-4 h-4 border-[#989898]"></div>

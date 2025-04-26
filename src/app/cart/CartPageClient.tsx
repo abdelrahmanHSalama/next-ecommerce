@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import CartItem from "@/components/CartItem";
+import CheckoutModal from "@/components/CheckoutModal";
 import { useCartStore } from "@/store/cartStore";
 import axios from "axios";
 
@@ -16,6 +17,7 @@ const CartPageClient = () => {
     const cart = useCartStore((state) => state.cart);
     const clearCart = useCartStore((state) => state.clearCart);
     const [productsInCart, setProductsInCart] = useState<Product[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fetchProductDetails = async (id: string) => {
         try {
@@ -60,7 +62,7 @@ const CartPageClient = () => {
     return (
         <div className="mx-auto my-4 w-5/6">
             <h2 className="text-xl font-bold mb-4">Shopping Cart</h2>
-            <div className="flex gap-8">
+            <div className="flex lg:flex-row flex-col lg:gap-8">
                 <div className="flex-2 flex flex-col">
                     {cart.length > 0
                         ? cart.map((item) => {
@@ -105,13 +107,24 @@ const CartPageClient = () => {
                         <p>Total</p>
                         <p>${formattedTotal}</p>
                     </div>
-                    <button className="text-white bg-black border-2 border-black rounded-md p-2 cursor-pointer hover:text-black hover:bg-white transition duration-250">
+                    <button
+                        className={
+                            cart.length > 0
+                                ? "text-white bg-black border-2 border-black rounded-md p-2 cursor-pointer hover:text-black hover:bg-white active:text-black active:bg-white transition duration-250"
+                                : "cursor-not-allowed bg-[#D4D4D4] border-[#D4D4D4] rounded-md p-2 transition duration-250"
+                        }
+                        onClick={() => {
+                            if (cart.length > 0) {
+                                setIsModalOpen(true);
+                            }
+                        }}
+                    >
                         Checkout
                     </button>
                     <button
                         className={
                             cart.length > 0
-                                ? "text-white bg-red-500 border-2 border-red-500 rounded-md p-2 cursor-pointer hover:text-red-500 hover:bg-white transition duration-250"
+                                ? "text-white bg-red-500 border-2 border-red-500 rounded-md p-2 cursor-pointer hover:text-red-500 hover:bg-white active:text-red-500 active:bg-white transition duration-250"
                                 : "cursor-not-allowed bg-[#D4D4D4] border-[#D4D4D4] rounded-md p-2 transition duration-250"
                         }
                         onClick={clearCart}
@@ -120,6 +133,10 @@ const CartPageClient = () => {
                     </button>
                 </div>
             </div>
+            <CheckoutModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </div>
     );
 };
