@@ -8,6 +8,10 @@ ECommerce Website built using Next.js and TypeScript.
 
 🧾 Dynamic product detail pages.
 
+🛒 Shopping Cart.
+
+❤️ Wishlist.
+
 🔐 Google login with NextAuth.js.
 
 🎨 Clean, responsive UI with Tailwind CSS.
@@ -23,10 +27,6 @@ Tailwind CSS
 NextAuth.js
 
 **🚧 In Progress:**
-
-🛒 Shopping Cart.
-
-❤️ Wishlist.
 
 ⚙️ User Settings.
 
