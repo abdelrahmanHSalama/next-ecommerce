@@ -15,7 +15,7 @@ const CheckoutModal = ({ isOpen, onClose }: ModalProps) => {
                 <p className="mb-4 text-center">⚠️ Please Try Again Later!</p>
                 <button
                     onClick={onClose}
-                    className="block text-white bg-black border-2 border-black rounded-md px-4 py-2 cursor-pointer hover:text-black hover:bg-white active:text-black active:bg-white transition duration-250 mx-auto"
+                    className="block text-white bg-black border-2 border-black rounded-md px-4 py-2 cursor-pointer hover:text-black hover:bg-white transition duration-250 mx-auto"
                 >
                     Close
                 </button>
