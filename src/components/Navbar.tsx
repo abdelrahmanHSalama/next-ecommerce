@@ -6,7 +6,13 @@ import { Icon } from "@iconify/react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 
-const Navbar = ({ version }: { version: string }) => {
+const Navbar = ({
+    version,
+    setHamburgerMenu,
+}: {
+    version: string;
+    setHamburgerMenu?: (hamburgerMenu: boolean) => void;
+}) => {
     const cartStateLength = useCartStore((state) => state.cart.length);
     const wishlistStateLength = useWishlistStore(
         (state) => state.wishlist.length
@@ -15,6 +21,7 @@ const Navbar = ({ version }: { version: string }) => {
         <nav className={version === "small" ? "flex flex-col" : "flex gap-4"}>
             <Link
                 href="/products"
+                onClick={() => setHamburgerMenu?.(false)}
                 className="flex items-center gap-2 active:bg-[#F5F5F5] hover:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
             >
                 <Icon icon="lucide:shopping-bag" width="20" height="20" />{" "}
@@ -22,6 +29,7 @@ const Navbar = ({ version }: { version: string }) => {
             </Link>
             <Link
                 href="/cart"
+                onClick={() => setHamburgerMenu?.(false)}
                 className="flex items-center gap-2 hover:bg-[#F5F5F5] active:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
             >
                 <Icon icon="lucide:shopping-cart" width="20" height="20" /> Cart{" "}
@@ -29,6 +37,7 @@ const Navbar = ({ version }: { version: string }) => {
             </Link>
             <Link
                 href="/wishlist"
+                onClick={() => setHamburgerMenu?.(false)}
                 className="flex items-center gap-2 hover:bg-[#F5F5F5] active:bg-[#F5F5F5] transition duration-250 cursor-pointer p-2 rounded-md"
             >
                 <Icon icon="lucide:heart" width="20" height="20" /> Wishlist{" "}

@@ -14,7 +14,7 @@ export default async function Home() {
     return (
         <>
             <div className="mb-8 w-full lg:grid lg:grid-rows-2">
-                <div className="bg-[#211C24] flex flex-col lg:flex-row justify-between items-center px-4 pt-4 lg:pt-0 lg:px-32">
+                <div className="bg-[#211C24] flex flex-col lg:flex-row justify-between items-center px-8 pt-8 lg:pt-0 lg:px-32">
                     <div className="text-white flex flex-col gap-4">
                         <p className="text-[2rem]">Latest Tech Products!</p>
                         <p className="text-xl">

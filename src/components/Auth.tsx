@@ -8,7 +8,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 
-const Auth = () => {
+const Auth = ({
+    setHamburgerMenu,
+}: {
+    setHamburgerMenu?: (hamburgerMenu: boolean) => void;
+}) => {
     const { data: session } = useSession();
     const clearCart = useCartStore((state) => state.clearCart);
     const clearWishlist = useWishlistStore((state) => state.clearWishlist);
@@ -20,6 +24,7 @@ const Auth = () => {
     const handleAccountClick = () => {
         router.push("/account");
         setDropdown(false);
+        setHamburgerMenu?.(false);
     };
 
     useEffect(() => {
@@ -42,6 +47,7 @@ const Auth = () => {
     }, [dropdown]);
 
     const handleSignout = () => {
+        setHamburgerMenu?.(false);
         clearCart();
         clearWishlist();
         signOut();

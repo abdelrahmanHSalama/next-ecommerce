@@ -92,7 +92,7 @@ export default function ProductsListInfiniteScroll({
                     <button
                         onClick={() => fetchNextPage()}
                         disabled={isFetchingNextPage}
-                        className="px-4 py-2 border-2 border-black hover:text-white hover:bg-black active:text-white active:bg-black transition duration-250 cursor-pointer rounded-md"
+                        className="px-4 py-2 border-2 border-black hover:text-white hover:bg-black transition duration-250 cursor-pointer rounded-md"
                     >
                         {isFetchingNextPage ? (
                             <div className="loader w-4 h-4 border-[#989898]"></div>

@@ -31,7 +31,11 @@ const searchProducts = async (
     return searchResults;
 };
 
-const Search = () => {
+const Search = ({
+    setHamburgerMenu,
+}: {
+    setHamburgerMenu?: (hamburgerMenu: boolean) => void;
+}) => {
     const [searchKeyword, setSearchKeyword] = useState("");
     const [searchResults, setSearchResults] = useState<SearchResponse | null>(
         null
@@ -43,6 +47,7 @@ const Search = () => {
 
     const handleCloseDropdown = () => {
         setDropdown(false);
+        setHamburgerMenu?.(false);
         setSearchKeyword("");
         setSearchResults(null);
     };

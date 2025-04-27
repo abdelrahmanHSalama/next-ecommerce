@@ -73,10 +73,11 @@ const ProductsFilters = ({
     return (
         <div>
             <button
-                className="border hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded-md cursor-pointer w-max transition duration-250 flex gap-2 items-center lg:hidden mb-4"
+                className="border hover:bg-black hover:text-white px-4 py-2 rounded-md cursor-pointer w-max transition duration-250 flex gap-2 items-center lg:hidden mb-4"
                 onClick={handleFiltersOpen}
             >
                 <Icon icon="lucide:filter" width="16" height="16" /> Filter
+                Products
             </button>
             <div className="hidden lg:block">
                 <p className="text-xl mb-2">Filter Products</p>
@@ -118,7 +119,7 @@ const ProductsFilters = ({
                         )}
                         <div
                             onClick={handleFold}
-                            className="cursor-pointer hover:font-bold active:font-bold"
+                            className="cursor-pointer hover:font-bold"
                         >
                             {folded ? (
                                 <div className="flex items-center gap-1">
@@ -160,13 +161,13 @@ const ProductsFilters = ({
                     ></input>
                     <div className="flex gap-2">
                         <button
-                            className="border hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+                            className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
                             onClick={applyFilters}
                         >
                             Apply
                         </button>
                         <button
-                            className="border hover:bg-black hover:text-white active:bg-black active:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+                            className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
                             onClick={clearFilters}
                         >
                             Clear

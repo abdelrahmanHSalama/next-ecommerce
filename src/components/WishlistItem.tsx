@@ -38,7 +38,7 @@ const WishlistItem = ({ product }: { product: Product }) => {
             <div className="flex items-center flex-1 justify-end">
                 <p className="">${product.price}</p>
                 <button
-                    className="m-1 cursor-pointer hover:bg-[#D9D9D9] active:bg-[#D9D9D9] rounded-full h-[40px] w-[40px]"
+                    className="m-1 cursor-pointer hover:bg-[#D9D9D9] rounded-full h-[40px] w-[40px]"
                     onClick={() => removeFromWishlist(product.id)}
                 >
                     ×

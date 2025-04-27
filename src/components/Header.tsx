@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 import Search from "./Search";
 
 const Header = () => {
-    const [hamburgerMenu, setHamburgerMenu] = useState(true);
+    const [hamburgerMenu, setHamburgerMenu] = useState(false);
     return (
         <header className="w-full shadow-md flex flex-col lg:h-[80px] lg:flex-row lg:items-center">
             <div className="lg:hidden w-full px-4 py-8 flex justify-between items-center mx-auto">
@@ -28,9 +28,9 @@ const Header = () => {
                     hamburgerMenu ? "max-h-[1000px]" : "max-h-0"
                 }`}
             >
-                <Navbar version="small" />
-                <Search />
-                <Auth />
+                <Navbar version="small" setHamburgerMenu={setHamburgerMenu} />
+                <Search setHamburgerMenu={setHamburgerMenu} />
+                <Auth setHamburgerMenu={setHamburgerMenu} />
             </div>
 
             <div className="hidden lg:flex w-5/6 items-center justify-between mx-auto">

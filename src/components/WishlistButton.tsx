@@ -49,8 +49,8 @@ const WishlistButton = ({
         <button
             className={` ${className} cursor-pointer transition duration-250 ${
                 style === "mini"
-                    ? "absolute right-[5%] top-[5%] text-[#909090] hover:text-black active:text-black"
-                    : "bg-white border-2 border-black rounded-md p-2 hover:bg-black hover:text-white active:bg-black active:text-white"
+                    ? "absolute right-[5%] top-[5%] text-[#909090] hover:text-black"
+                    : "bg-white border-2 border-black rounded-md p-2 hover:bg-black hover:text-white"
             }`}
             onClick={handleClick}
         >
