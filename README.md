@@ -1,4 +1,4 @@
-## NextShop
+## NextShop [Live Preview](https://next-shop-iota-one.vercel.app/)
 
 ECommerce Website built using Next.js and TypeScript.
 
