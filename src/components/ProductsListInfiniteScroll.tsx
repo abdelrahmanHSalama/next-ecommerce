@@ -29,6 +29,7 @@ export default function ProductsListInfiniteScroll({
         data,
         isLoading,
         isError,
+        error,
         fetchNextPage,
         hasNextPage,
         isFetchingNextPage,
@@ -57,11 +58,16 @@ export default function ProductsListInfiniteScroll({
 
     if (isLoading)
         return (
-            <div className="w-full flex justify-center">
+            <div className="w-full flex justify-center min-h-screen">
                 <Loading />
             </div>
         );
-    if (isError) return <p>Error Fetching Products...</p>;
+    if (isError)
+        return (
+            <p className="text-red-500">
+                {error instanceof Error ? error.message : "Unknown error!"}
+            </p>
+        );
 
     const products = data?.pages.flatMap((page) => page.products) || [];
 

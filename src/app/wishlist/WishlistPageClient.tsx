@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import WishlistItem from "@/components/WishlistItem";
 import { useWishlistStore } from "@/store/wishlistStore";
 import axios from "axios";
+import Loading from "@/components/Loading";
 
 interface Product {
     id: number;
@@ -16,6 +17,8 @@ const WishlistPageClient = () => {
     const wishlist = useWishlistStore((state) => state.wishlist);
     const clearWishlist = useWishlistStore((state) => state.clearWishlist);
     const [productsInWishlist, setProductsInWishlist] = useState<Product[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const fetchProductDetails = async (id: string) => {
         try {
@@ -35,10 +38,27 @@ const WishlistPageClient = () => {
 
     useEffect(() => {
         const fetchWishlistProducts = async () => {
-            const fetchResults = await Promise.all(
-                wishlist.map((item) => fetchProductDetails(item.id.toString()))
-            );
-            setProductsInWishlist(fetchResults.filter(Boolean) as Product[]);
+            setIsLoading(true);
+            setError(null);
+
+            try {
+                const fetchResults = await Promise.all(
+                    wishlist.map((item) =>
+                        fetchProductDetails(item.id.toString())
+                    )
+                );
+                setProductsInWishlist(
+                    fetchResults.filter(Boolean) as Product[]
+                );
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError("Unknown Error!");
+                }
+            } finally {
+                setIsLoading(false);
+            }
         };
         fetchWishlistProducts();
     }, [wishlist]);
@@ -59,19 +79,22 @@ const WishlistPageClient = () => {
                 </button>
             </div>
             <div className="flex flex-col">
-                {wishlist.length > 0
-                    ? wishlist.map((item) => {
-                          const product = productsInWishlist.find(
-                              (product) => product.id === item.id
-                          );
-                          return product ? (
-                              <WishlistItem
-                                  product={product}
-                                  key={product.id}
-                              />
-                          ) : null;
-                      })
-                    : "There are no items in your wishlist! 😢"}
+                {isLoading ? (
+                    <Loading />
+                ) : error ? (
+                    <p className="text-red-500">Error: {error}</p>
+                ) : wishlist.length > 0 ? (
+                    wishlist.map((item) => {
+                        const product = productsInWishlist.find(
+                            (product) => product.id === item.id
+                        );
+                        return product ? (
+                            <WishlistItem product={product} key={product.id} />
+                        ) : null;
+                    })
+                ) : (
+                    "There are no items in your wishlist! 😢"
+                )}
             </div>
         </div>
     );

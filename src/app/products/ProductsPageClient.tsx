@@ -2,10 +2,11 @@
 
 import ProductsFilters from "@/components/ProductsFilters";
 import ProductsListInfiniteScroll from "@/components/ProductsListInfiniteScroll";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Loading from "@/components/Loading";
 
-export default function ProductsPageClient() {
+function ProductsPageContent() {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(10000);
@@ -18,7 +19,7 @@ export default function ProductsPageClient() {
     }, [searchParams]);
 
     return (
-        <div className="mx-auto w-5/6 lg:grid lg:grid-cols-4 lg:gap-4 my-4 lg:my-8">
+        <div className="mx-auto w-5/6 lg:grid lg:grid-cols-4 lg:gap-4 my-4 lg:my-8  flex-grow">
             <div className="lg:col-span-1">
                 <ProductsFilters
                     selectedCategory={selectedCategory}
@@ -35,5 +36,13 @@ export default function ProductsPageClient() {
                 />
             </div>
         </div>
+    );
+}
+
+export default function ProductsPageClient() {
+    return (
+        <Suspense fallback={<Loading />}>
+            <ProductsPageContent />
+        </Suspense>
     );
 }

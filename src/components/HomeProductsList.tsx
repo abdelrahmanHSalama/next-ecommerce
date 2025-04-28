@@ -15,7 +15,7 @@ export default function HomeProductsList() {
         { name: "Featured Products", id: 2, startingIndex: 8 },
     ];
 
-    const { data, isLoading, isError } = useQuery({
+    const { data, isLoading, isError, error } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
             const { data: products } = await axios.get(
@@ -48,7 +48,10 @@ export default function HomeProductsList() {
                     <Loading />
                 </div>
             ) : isError ? (
-                <p>Error...</p>
+                <p className="text-red-500">
+                    Error:{" "}
+                    {error instanceof Error ? error.message : "Unknown error!"}
+                </p>
             ) : (
                 <ProductsList
                     products={

@@ -2,11 +2,12 @@
 
 import React from "react";
 import { Icon } from "@iconify/react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useDebounce } from "use-debounce";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "./Loading";
 
 interface SearchResponse {
     products: Product[];
@@ -41,16 +42,18 @@ const Search = ({
         null
     );
     const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const [dropdown, setDropdown] = useState(false);
     const searchDropdownRef = useRef<HTMLDivElement>(null);
 
-    const handleCloseDropdown = () => {
+    const handleCloseDropdown = useCallback(() => {
         setDropdown(false);
         setHamburgerMenu?.(false);
         setSearchKeyword("");
         setSearchResults(null);
-    };
+    }, [setHamburgerMenu]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -74,12 +77,28 @@ const Search = ({
     useEffect(() => {
         const fetchResults = async () => {
             if (!debouncedSearchKeyword.trim()) {
+                setSearchResults(null);
+                setError(null);
                 return;
             }
-            const fetchedProducts = await searchProducts(
-                debouncedSearchKeyword
-            );
-            setSearchResults(fetchedProducts);
+
+            setIsLoading(true);
+            setError(null);
+
+            try {
+                const fetchedProducts = await searchProducts(
+                    debouncedSearchKeyword
+                );
+                setSearchResults(fetchedProducts);
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError("Unknown Error!");
+                }
+            } finally {
+                setIsLoading(false);
+            }
         };
 
         fetchResults();
@@ -124,46 +143,54 @@ const Search = ({
                 />
             </div>
 
-            {/* Your dropdown results */}
-            {searchKeyword && searchResults && (
-                <div className="w-full lg:absolute lg:z-100">
-                    <ul className="flex flex-col bg-[#D4D4D4] rounded-b-md">
-                        {searchResults?.products.slice(0, 3).map((result) => (
-                            <li key={result.id}>
+            {isLoading ? (
+                <Loading />
+            ) : error ? (
+                <p className="text-red-500">Error: {error}</p>
+            ) : (
+                searchKeyword &&
+                searchResults && (
+                    <div className="w-full lg:absolute lg:z-100">
+                        <ul className="flex flex-col bg-[#D4D4D4] rounded-b-md">
+                            {searchResults?.products
+                                .slice(0, 3)
+                                .map((result) => (
+                                    <li key={result.id}>
+                                        <Link
+                                            href={`/products/${result.id}`}
+                                            className="flex gap-3 p-2 lg:hover:font-bold"
+                                            onClick={handleCloseDropdown}
+                                        >
+                                            <div className="relative w-16 h-16 flex-shrink-0">
+                                                <Image
+                                                    src={result.thumbnail}
+                                                    alt={result.title}
+                                                    fill
+                                                    className="object-cover rounded"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col justify-center">
+                                                <p>{result.title}</p>
+
+                                                <p className="text-sm text-gray-600">
+                                                    ${result.price}
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                ))}
+                            {searchResults.products.length > 3 && (
                                 <Link
-                                    href={`/products/${result.id}`}
-                                    className="flex gap-3 p-2 lg:hover:font-bold"
+                                    className="text-blue-800 p-4 lg:hover:font-bold cursor-pointer"
+                                    href={`/search?q=${debouncedSearchKeyword}`}
                                     onClick={handleCloseDropdown}
                                 >
-                                    <div className="relative w-16 h-16 flex-shrink-0">
-                                        <Image
-                                            src={result.thumbnail}
-                                            alt={result.title}
-                                            fill
-                                            className="object-cover rounded"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col justify-center">
-                                        <p>{result.title}</p>
-
-                                        <p className="text-sm text-gray-600">
-                                            ${result.price}
-                                        </p>
-                                    </div>
+                                    Show More Results...
                                 </Link>
-                            </li>
-                        ))}
-                        {searchResults.products.length > 3 && (
-                            <Link
-                                className="text-blue-800 p-4 lg:hover:font-bold cursor-pointer"
-                                href={`/search?q=${debouncedSearchKeyword}`}
-                                onClick={handleCloseDropdown}
-                            >
-                                Show More Results...
-                            </Link>
-                        )}
-                    </ul>
-                </div>
+                            )}
+                        </ul>
+                    </div>
+                )
             )}
         </div>
     );

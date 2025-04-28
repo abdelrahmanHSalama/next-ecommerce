@@ -5,6 +5,7 @@ import CartItem from "@/components/CartItem";
 import CheckoutModal from "@/components/CheckoutModal";
 import { useCartStore } from "@/store/cartStore";
 import axios from "axios";
+import Loading from "@/components/Loading";
 
 interface Product {
     id: number;
@@ -18,6 +19,8 @@ const CartPageClient = () => {
     const clearCart = useCartStore((state) => state.clearCart);
     const [productsInCart, setProductsInCart] = useState<Product[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const fetchProductDetails = async (id: string) => {
         try {
@@ -37,10 +40,23 @@ const CartPageClient = () => {
 
     useEffect(() => {
         const fetchCartProducts = async () => {
-            const fetchResults = await Promise.all(
-                cart.map((item) => fetchProductDetails(item.id.toString()))
-            );
-            setProductsInCart(fetchResults.filter(Boolean) as Product[]);
+            setIsLoading(true);
+            setError(null);
+
+            try {
+                const fetchResults = await Promise.all(
+                    cart.map((item) => fetchProductDetails(item.id.toString()))
+                );
+                setProductsInCart(fetchResults.filter(Boolean) as Product[]);
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError("Unknown Error!");
+                }
+            } finally {
+                setIsLoading(false);
+            }
         };
         fetchCartProducts();
     }, [cart]);
@@ -64,20 +80,26 @@ const CartPageClient = () => {
             <h2 className="text-xl font-bold mb-4">Shopping Cart</h2>
             <div className="flex lg:flex-row flex-col lg:gap-8">
                 <div className="flex-2 flex flex-col">
-                    {cart.length > 0
-                        ? cart.map((item) => {
-                              const product = productsInCart.find(
-                                  (product) => product.id === item.id
-                              );
-                              return product ? (
-                                  <CartItem
-                                      product={product}
-                                      quantity={item.quantity}
-                                      key={product.id}
-                                  />
-                              ) : null;
-                          })
-                        : "There are no items in your cart! 😢"}
+                    {isLoading ? (
+                        <Loading />
+                    ) : error ? (
+                        <p className="text-red-500">Error: {error}</p>
+                    ) : cart.length > 0 ? (
+                        cart.map((item) => {
+                            const product = productsInCart.find(
+                                (product) => product.id === item.id
+                            );
+                            return product ? (
+                                <CartItem
+                                    product={product}
+                                    quantity={item.quantity}
+                                    key={product.id}
+                                />
+                            ) : null;
+                        })
+                    ) : (
+                        "There are no items in your cart! 😢"
+                    )}
                 </div>
                 <div className="flex-1 border border-[#EBEBEB] rounded-md p-8 flex flex-col gap-4 h-min">
                     <h1 className="text-xl font-bold">Order Summary</h1>

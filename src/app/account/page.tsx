@@ -3,15 +3,9 @@
 import React from "react";
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 
 const Account = () => {
     const { data: session } = useSession();
-
-    const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/";
-
-    console.log(session);
 
     if (session) {
         return (
@@ -40,8 +34,8 @@ const Account = () => {
         return (
             <div className="py-4 w-5/6 flex mx-auto justify-center items-center flex-grow">
                 <button
-                    className="text-white bg-black border-2 border-black rounded-md py-2 px-4 lg:hover:text-black lg:hover:bg-white transition duration-250"
-                    onClick={() => signIn("google", { callbackUrl })}
+                    className="text-white bg-black border-2 border-black rounded-md py-2 px-4 lg:hover:text-black lg:hover:bg-white transition duration-250 cursor-pointer"
+                    onClick={() => signIn("google")}
                 >
                     Sign In with Google
                 </button>
