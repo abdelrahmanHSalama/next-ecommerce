@@ -11,13 +11,15 @@ const CheckoutModal = ({ isOpen, onClose }: ModalProps) => {
             className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50
 "
         >
-            <div className="bg-white rounded-md p-4 w-max shadow-md">
-                <p className="mb-4 text-center">⚠️ Please Try Again Later!</p>
+            <div className="bg-white rounded-md p-8 w-max shadow-md flex flex-col">
+                <p className="mb-4 text-center">
+                    ⌚<br></br>Please Try Again Later!
+                </p>
                 <button
+                    className="bg-white border-2 border-black rounded-md py-2 px-4 lg:hover:text-white lg:hover:bg-black transition duration-250 cursor-pointer"
                     onClick={onClose}
-                    className="block text-white bg-black border-2 border-black rounded-md px-4 py-2 cursor-pointer hover:text-black hover:bg-white transition duration-250 mx-auto"
                 >
-                    Close
+                    Cancel
                 </button>
             </div>
         </div>

@@ -13,22 +13,22 @@ export const metadata: Metadata = {
 export default async function Home() {
     return (
         <>
-            <div className="mb-8 w-full lg:grid lg:grid-rows-2">
-                <div className="bg-[#211C24] flex flex-col lg:flex-row justify-between items-center px-8 pt-8 lg:pt-0 lg:px-32">
+            <div className="mb-8 w-full lg:grid lg:grid-rows-2 lg:h-[calc(100vh-80px)]">
+                <div className="bg-[#211C24] flex flex-col lg:flex-row justify-between items-center px-8 pt-8 lg:pt-0 lg:px-32 lg:relative">
                     <div className="text-white flex flex-col gap-4">
-                        <p className="text-[2rem]">Latest Tech Products!</p>
+                        <p className="text-[2rem]">Shop Latest Products!</p>
                         <p className="text-xl">
-                            Enjoy the latest tech products with the best prices
-                            on the market!
+                            Enjoy the latest products with the best prices on
+                            the market!
                         </p>
                         <Link
-                            className="border border-white p-2 rounded-md cursor-pointer hover:bg-white hover:text-[#211C24] active:bg-white active:text-[#211C24] transition duration-250 w-max"
+                            className="border border-white p-2 rounded-md cursor-pointer lg:hover:bg-white lg:hover:text-[#211C24] active:bg-white active:text-[#211C24] transition duration-250 w-max"
                             href="/products"
                         >
                             Shop Now
                         </Link>
                     </div>
-                    <div className="relative h-[250px] w-[250px] lg:h-[500px] lg:w-[500px]">
+                    <div className="relative lg:absolute h-[250px] w-[250px] lg:bottom-0 lg:right-0 lg:mr-32">
                         <Image
                             src="/phone.png"
                             fill
@@ -40,10 +40,10 @@ export default async function Home() {
                 <div className="lg:grid lg:grid-cols-2">
                     <div className="lg:grid lg:grid-rows-2">
                         <Link
-                            className="flex flex-col items-center justify-center lg:text-lg p-4"
+                            className="flex flex-col lg:flex-row items-center justify-center lg:text-lg"
                             href="/products?category=groceries"
                         >
-                            <div className="relative h-[150px] w-[150px]">
+                            <div className="relative h-[100px] w-[100px]">
                                 <Image
                                     src="/juice.png"
                                     fill
@@ -51,16 +51,14 @@ export default async function Home() {
                                     alt="Juice"
                                 />
                             </div>
-                            <p className="h-[2rem] flex items-center">
-                                Fresh Groceries
-                            </p>
+                            <p className="flex items-center">Fresh Groceries</p>
                         </Link>
                         <div className="lg:grid lg:grid-cols-2">
                             <Link
-                                className="bg-[#909090] flex flex-col items-center justify-center text-white lg:text-lg p-4"
+                                className="bg-[#909090] flex flex-col lg:flex-row items-center justify-center text-white lg:text-lg"
                                 href="/products?category=womens-dresses"
                             >
-                                <div className="relative h-[150px] w-[150px] mb-2">
+                                <div className="relative h-[100px] w-[100px] mb-2">
                                     <Image
                                         src="/dress.png"
                                         fill
@@ -68,18 +66,21 @@ export default async function Home() {
                                         alt="Dress"
                                     />
                                 </div>
-                                <p className="text-center">
+                                <p className="text-center lg:text-start">
                                     Trendy
-                                    <br />
+                                    <span className="inline lg:hidden"> </span>
+                                    <span className="hidden lg:inline">
+                                        <br />
+                                    </span>
                                     Women Dresses
                                 </p>
                             </Link>
 
                             <Link
-                                className="bg-[#211C24] flex flex-col items-center justify-center text-white lg:text-lg p-4"
+                                className="bg-[#211C24] flex flex-col lg:flex-row items-center justify-center text-white lg:text-lg"
                                 href="/products?category=mens-shirts"
                             >
-                                <div className="relative h-[150px] w-[150px] mb-2">
+                                <div className="relative h-[100px] w-[100px] mb-2">
                                     <Image
                                         src="/shirt.png"
                                         fill
@@ -87,19 +88,22 @@ export default async function Home() {
                                         alt="Shirt"
                                     />
                                 </div>
-                                <p className="text-center">
+                                <p className="text-center lg:text-start">
                                     Fashionable
-                                    <br />
+                                    <span className="inline lg:hidden"> </span>
+                                    <span className="hidden lg:inline">
+                                        <br />
+                                    </span>
                                     Men Shirts
                                 </p>
                             </Link>
                         </div>
                     </div>
                     <Link
-                        className="bg-[#909090] flex flex-col lg:flex-row justify-center items-center text-white lg:text-2xl p-4"
+                        className="bg-[#909090] flex flex-col lg:flex-row justify-center items-center text-white lg:text-xl"
                         href="/products?category=furniture"
                     >
-                        <div className="relative h-[150px] w-[150px] lg:h-[300px] lg:w-[300px]">
+                        <div className="relative h-[250px] w-[250px]">
                             <Image
                                 src="/chair.png"
                                 fill
@@ -109,7 +113,10 @@ export default async function Home() {
                         </div>
                         <p className="text-center lg:text-start">
                             Elegant
-                            <br />
+                            <span className="inline lg:hidden"> </span>
+                            <span className="hidden lg:inline">
+                                <br />
+                            </span>
                             Home Furniture
                         </p>
                     </Link>

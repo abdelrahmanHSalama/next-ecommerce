@@ -22,7 +22,7 @@ const Footer = () => {
         "Live Chat Support",
     ];
     return (
-        <footer className="py-6 w-full bg-black text-sm">
+        <footer className="py-6 lg:py-12 w-full bg-black text-sm">
             <div className="w-5/6 mx-auto">
                 <div className="flex flex-col lg:flex-row">
                     <div className="flex flex-col flex-2">

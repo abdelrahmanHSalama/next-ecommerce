@@ -44,13 +44,13 @@ const WishlistPageClient = () => {
     }, [wishlist]);
 
     return (
-        <div className="mx-auto my-4 w-5/6">
+        <div className="mx-auto mt-4 w-5/6 lg:w-1/2">
             <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-xl font-bold">Wishlist</h2>
                 <button
                     className={
                         wishlist.length > 0
-                            ? "text-white bg-red-500 border-2 border-red-500 rounded-md p-2 cursor-pointer hover:text-red-500 hover:bg-white transition duration-250"
+                            ? "text-white bg-red-500 border-2 border-red-500 rounded-md p-2 cursor-pointer lg:hover:text-red-500 lg:hover:bg-white transition duration-250"
                             : "cursor-not-allowed bg-[#D4D4D4] border-[#D4D4D4] rounded-md p-2 transition duration-250"
                     }
                     onClick={clearWishlist}

@@ -69,7 +69,7 @@ const Search = ({
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [dropdown]);
+    }, [dropdown, handleCloseDropdown]);
 
     useEffect(() => {
         const fetchResults = async () => {
@@ -132,7 +132,7 @@ const Search = ({
                             <li key={result.id}>
                                 <Link
                                     href={`/products/${result.id}`}
-                                    className="flex gap-3 p-2 hover:font-bold"
+                                    className="flex gap-3 p-2 lg:hover:font-bold"
                                     onClick={handleCloseDropdown}
                                 >
                                     <div className="relative w-16 h-16 flex-shrink-0">
@@ -155,7 +155,7 @@ const Search = ({
                         ))}
                         {searchResults.products.length > 3 && (
                             <Link
-                                className="text-blue-800 p-4 hover:font-bold cursor-pointer"
+                                className="text-blue-800 p-4 lg:hover:font-bold cursor-pointer"
                                 href={`/search?q=${debouncedSearchKeyword}`}
                                 onClick={handleCloseDropdown}
                             >

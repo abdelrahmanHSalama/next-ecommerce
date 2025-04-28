@@ -40,7 +40,7 @@ const Account = () => {
         return (
             <div className="py-4 w-5/6 flex mx-auto justify-center items-center flex-grow">
                 <button
-                    className="text-white bg-black border-2 border-black rounded-md py-2 px-4 hover:text-black hover:bg-white transition duration-250"
+                    className="text-white bg-black border-2 border-black rounded-md py-2 px-4 lg:hover:text-black lg:hover:bg-white transition duration-250"
                     onClick={() => signIn("google", { callbackUrl })}
                 >
                     Sign In with Google

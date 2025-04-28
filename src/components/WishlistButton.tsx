@@ -3,9 +3,8 @@
 import { Icon } from "@iconify/react";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
+import SigninModal from "./SigninModal";
 
 const WishlistButton = ({
     className,
@@ -22,12 +21,10 @@ const WishlistButton = ({
         (state) => state.removeFromWishlist
     );
     const isInWishlist = useWishlistStore((state) => state.isInWishlist);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const router = useRouter();
     const { status: authStatus } = useSession();
     const isLoggedIn = authStatus === "authenticated";
-
-    const currentPath = usePathname();
 
     const handleClick = () => {
         if (isLoggedIn) {
@@ -39,33 +36,37 @@ const WishlistButton = ({
                 setButtonState(!buttonState);
             }
         } else {
-            router.push(
-                `/account?callbackUrl=${encodeURIComponent(currentPath)}`
-            );
+            setIsModalOpen(true);
         }
     };
 
     return (
-        <button
-            className={` ${className} cursor-pointer transition duration-250 ${
-                style === "mini"
-                    ? "absolute right-[5%] top-[5%] text-[#909090] hover:text-black"
-                    : "bg-white border-2 border-black rounded-md p-2 hover:bg-black hover:text-white"
-            }`}
-            onClick={handleClick}
-        >
-            {style === "full" ? (
-                isInWishlist(productId) ? (
-                    "Remove from Wishlist"
+        <>
+            <button
+                className={` ${className} cursor-pointer transition duration-250 ${
+                    style === "mini"
+                        ? "absolute right-[5%] top-[5%] lg:hover:text-red-600"
+                        : "bg-white border-2 border-black rounded-md p-2 lg:hover:bg-black lg:hover:text-white"
+                }`}
+                onClick={handleClick}
+            >
+                {style === "full" ? (
+                    isInWishlist(productId) ? (
+                        "Remove from Wishlist"
+                    ) : (
+                        "Add to Wishlist"
+                    )
+                ) : isInWishlist(productId) ? (
+                    <Icon icon="lucide:heart-off" width="24" height="24" />
                 ) : (
-                    "Add to Wishlist"
-                )
-            ) : isInWishlist(productId) ? (
-                <Icon icon="lucide:heart-off" width="24" height="24" />
-            ) : (
-                <Icon icon="lucide:heart" width="24" height="24" />
-            )}
-        </button>
+                    <Icon icon="lucide:heart" width="24" height="24" />
+                )}
+            </button>
+            <SigninModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
+        </>
     );
 };
 

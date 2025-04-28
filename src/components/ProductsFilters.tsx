@@ -70,10 +70,15 @@ const ProductsFilters = ({
         setFiltersOpen(!filtersOpen);
     };
 
+    const handleChangeCategory = (category: string) => {
+        setSelectedCategory(category);
+        clearFilters();
+    };
+
     return (
         <div>
             <button
-                className="border hover:bg-black hover:text-white px-4 py-2 rounded-md cursor-pointer w-max transition duration-250 flex gap-2 items-center lg:hidden mb-4"
+                className="border lg:hover:bg-black lg:hover:text-white px-4 py-2 rounded-md cursor-pointer w-max transition duration-250 flex gap-2 items-center lg:hidden mb-4"
                 onClick={handleFiltersOpen}
             >
                 <Icon icon="lucide:filter" width="16" height="16" /> Filter
@@ -106,7 +111,7 @@ const ProductsFilters = ({
                                                 category.slug
                                             }
                                             onChange={() =>
-                                                setSelectedCategory(
+                                                handleChangeCategory(
                                                     category.slug
                                                 )
                                             }
@@ -119,7 +124,7 @@ const ProductsFilters = ({
                         )}
                         <div
                             onClick={handleFold}
-                            className="cursor-pointer hover:font-bold"
+                            className="cursor-pointer lg:hover:font-bold"
                         >
                             {folded ? (
                                 <div className="flex items-center gap-1">
@@ -161,13 +166,13 @@ const ProductsFilters = ({
                     ></input>
                     <div className="flex gap-2">
                         <button
-                            className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+                            className="border lg:hover:bg-black lg:hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
                             onClick={applyFilters}
                         >
                             Apply
                         </button>
                         <button
-                            className="border hover:bg-black hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+                            className="border lg:hover:bg-black lg:hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
                             onClick={clearFilters}
                         >
                             Clear

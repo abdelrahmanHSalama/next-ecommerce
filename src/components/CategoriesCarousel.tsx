@@ -66,14 +66,14 @@ const CategoriesCarousel = () => {
                         icon="lucide:chevron-left"
                         width="24"
                         height="24"
-                        className="cursor-pointer hover:bg-[#D9D9D9] rounded-full p-0.5"
+                        className="cursor-pointer lg:hover:bg-[#D9D9D9] rounded-full p-0.5"
                         onClick={scrollLeft}
                     />
                     <Icon
                         icon="lucide:chevron-right"
                         width="24"
                         height="24"
-                        className="cursor-pointer hover:bg-[#D9D9D9] rounded-full p-0.5"
+                        className="cursor-pointer lg:hover:bg-[#D9D9D9] rounded-full p-0.5"
                         onClick={scrollRight}
                     />
                 </div>

@@ -36,7 +36,7 @@ export default function HomeProductsList() {
                         className={`cursor-pointer text-lg transition duration-250 ${
                             productTab.id === productsTab
                                 ? "font-bold text-black"
-                                : "text-[#909090] hover:text-black transition duration-250"
+                                : "text-[#909090] lg:hover:text-black transition duration-250"
                         }`}
                     >
                         {productTab.name}
