@@ -18,11 +18,20 @@ ECommerce Website built using Next.js and TypeScript.
 
 **⚡ Tech Stack:**
 
-Next.js 15
+<img
+        src="https://img.shields.io/badge/next-black?style=for-the-badge&logo=nextdotjs&logoColor=%23FFFFFF"
+        alt="Next.js"
+    />
 
-TypeScript
+<img
+        src="https://img.shields.io/badge/typescript-black?style=for-the-badge&logo=typescript&logoColor=%233178C6"
+        alt="TypeScript"
+    />
 
-Tailwind CSS
+<img
+        src="https://img.shields.io/badge/tailwind css-black?style=for-the-badge&logo=tailwindcss&logoColor=%2306B6D4"
+        alt="Tailwind CSS"
+    />
 
 NextAuth.js
 
