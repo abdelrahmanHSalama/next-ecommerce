@@ -19,7 +19,7 @@ ECommerce Website built using Next.js and TypeScript.
 **⚡ Tech Stack:**
 
 <img
-        src="https://img.shields.io/badge/next-black?style=for-the-badge&logo=nextdotjs&logoColor=%23FFFFFF"
+        src="https://img.shields.io/badge/next.js-black?style=for-the-badge&logo=nextdotjs&logoColor=%23FFFFFF"
         alt="Next.js"
     />
 
