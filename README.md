@@ -32,4 +32,4 @@ NextAuth.js
 
 💼 Admin Dashboard.
 
-🛍 Orders & Checkout
+🛍 Orders & Checkout.
