@@ -59,8 +59,11 @@ const Footer = () => {
           </div>
         </div>
         <p className="text-white mt-6 lg:mt-0">
-          &copy; {new Date().getFullYear()} NextShop -
-          <Link href="https://www.figma.com/design/g6XFOjZggonojEjfpQLfaj/E-Store---Mobile-web--Community-">
+          &copy; {new Date().getFullYear()} NextShop -{" "}
+          <Link
+            className="underline"
+            href="https://www.figma.com/design/g6XFOjZggonojEjfpQLfaj/E-Store---Mobile-web--Community-"
+          >
             Figma Design
           </Link>
         </p>
