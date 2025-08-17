@@ -2,14 +2,14 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="mx-auto my-4 w-5/6">
-      <h2 className="text-2xl font-bold mb-4">NextShop</h2>
-      <p className="mb-4">
+    <div className="mx-auto my-8 w-5/6 space-y-4">
+      <h2 className="text-2xl font-bold">NextShop</h2>
+      <p>
         Your ultimate destination for the latest in tech gadgets, accessories,
         and innovations!
       </p>
 
-      <section className="mb-4">
+      <section>
         <h2 className="text-xl font-bold">Our Story</h2>
         <p>
           At <strong>NextShop</strong>, we believe in bringing the most
@@ -21,7 +21,7 @@ const About = () => {
         </p>
       </section>
 
-      <section className="mb-4">
+      <section>
         <h2 className="text-xl font-bold">Our Mission</h2>
         <p>
           To empower people with the technology they need to enhance their lives
