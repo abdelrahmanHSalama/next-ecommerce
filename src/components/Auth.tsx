@@ -2,8 +2,9 @@
 
 // import { useCartStore } from "@/store/cartStore";
 // import { useWishlistStore } from "@/store/wishlistStore";
-// import { useEffect, useRef, useState } from "react";
-// import { useRouter } from "next/navigation";
+import { useState } from "react";
+// import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 // import Image from "next/image";
 import { Icon } from "@iconify/react";
 
@@ -16,15 +17,15 @@ const Auth = ({
   //   const clearCart = useCartStore((state) => state.clearCart);
   //   const clearWishlist = useWishlistStore((state) => state.clearWishlist);
 
-  //   const [dropdown, setDropdown] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
   //   const dropdownRef = useRef<HTMLDivElement>(null);
-  //   const router = useRouter();
+  const router = useRouter();
 
-  //   const handleAccountClick = () => {
-  //     router.push("/account");
-  //     setDropdown(false);
-  //     setHamburgerMenu?.(false);
-  //   };
+  const handleAccountClick = () => {
+    router.push("/account");
+    setDropdown(false);
+    setHamburgerMenu?.(false);
+  };
 
   //   useEffect(() => {
   //     const handleClickOutside = (event: MouseEvent) => {
