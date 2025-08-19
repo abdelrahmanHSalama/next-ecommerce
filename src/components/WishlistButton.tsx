@@ -2,7 +2,6 @@
 
 import { Icon } from "@iconify/react";
 import { useWishlistStore } from "@/store/wishlistStore";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import SigninModal from "./SigninModal";
 

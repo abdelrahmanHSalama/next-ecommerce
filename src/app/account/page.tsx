@@ -3,6 +3,22 @@
 import React from "react";
 import Image from "next/image";
 
+type Session = {
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+};
+
+const session: Session | null = {
+  user: {
+    name: "Demo User",
+    email: "demo@example.com",
+    image: "/avatar.png",
+  },
+};
+
 const Account = () => {
   if (session) {
     return (
@@ -28,10 +44,7 @@ const Account = () => {
   if (!session) {
     return (
       <div className="py-4 w-5/6 flex mx-auto justify-center items-center flex-grow">
-        <button
-          className="text-white bg-black border-2 border-black rounded-md py-2 px-4 lg:hover:text-black lg:hover:bg-white transition duration-250 cursor-pointer"
-          onClick={() => signIn("google")}
-        >
+        <button className="text-white bg-black border-2 border-black rounded-md py-2 px-4 lg:hover:text-black lg:hover:bg-white transition duration-250 cursor-pointer">
           Sign In with Google
         </button>
       </div>

@@ -2,48 +2,61 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface WishlistItem {
-    id: number;
+  id: number;
 }
 
 interface WishlistState {
-    wishlist: WishlistItem[];
-    addToWishlist: (id: number) => void;
-    removeFromWishlist: (id: number) => void;
-    clearWishlist: () => void;
-    isInWishlist: (id: number) => boolean;
+  wishlist: WishlistItem[];
+  addToWishlist: (id: number) => void;
+  removeFromWishlist: (id: number) => void;
+  clearWishlist: () => void;
+  isInWishlist: (id: number) => boolean;
 }
 
 export const useWishlistStore = create<WishlistState>()(
-    persist<WishlistState>(
-        (set, get) => ({
-            wishlist: [],
+  persist<WishlistState>(
+    (set, get) => ({
+      wishlist: [],
 
-            addToWishlist: (id: number) => {
-                set((state) => {
-                    const itemExists = get().isInWishlist(id);
+      addToWishlist: (id: number) => {
+        set((state) => {
+          const itemExists = get().isInWishlist(id);
 
-                    if (itemExists) {
-                        return state;
-                    } else {
-                        return {
-                            wishlist: [...state.wishlist, { id }],
-                        };
-                    }
-                });
-            },
+          if (itemExists) {
+            return state;
+          } else {
+            return {
+              wishlist: [...state.wishlist, { id }],
+            };
+          }
+        });
+      },
 
-            removeFromWishlist: (id: number) => {
-                set((state) => ({
-                    wishlist: state.wishlist.filter((item) => item.id !== id),
-                }));
-            },
+      removeFromWishlist: (id: number) => {
+        set((state) => ({
+          wishlist: state.wishlist.filter((item) => item.id !== id),
+        }));
+      },
 
-            clearWishlist: () => set({ wishlist: [] }),
+      clearWishlist: () => set({ wishlist: [] }),
 
-            isInWishlist: (id: number) => {
-                return get().wishlist.some((item) => item.id === id);
-            },
-        }),
-        { name: "wishlist-state" }
-    )
+      isInWishlist: (id: number) => {
+        return get().wishlist.some((item) => item.id === id);
+      },
+    }),
+    { name: "wishlist-state" }
+  )
 );
+
+export const useIsInWishlist = (id: number) =>
+  useWishlistStore((s) => s.isInWishlist(id));
+
+export const useAddToWishlist = () => useWishlistStore((s) => s.addToWishlist);
+
+export const useRemoveFromWishlist = () =>
+  useWishlistStore((s) => s.removeFromWishlist);
+
+export const useClearWishlist = () => useWishlistStore((s) => s.clearWishlist);
+
+export const useWishlistCount = () =>
+  useWishlistStore((s) => s.wishlist.length);
