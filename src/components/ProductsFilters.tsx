@@ -149,18 +149,22 @@ const ProductsFilters = ({
           <h3 className="text-lg font-semibold mb-2">Price Range</h3>
           <div className="space-y-3">
             <input
-              type="text"
+              type="number"
               placeholder="Min Price ($)"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder:text-gray-500"
               value={tempMinPrice}
               onChange={(e) => setTempMinPrice(e.target.value)}
+              step="1"
+              min={0}
             />
             <input
-              type="text"
+              type="number"
               placeholder="Max Price ($)"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder:text-gray-500"
               value={tempMaxPrice}
               onChange={(e) => setTempMaxPrice(e.target.value)}
+              step="1"
+              min={0}
             />
           </div>
           <div className="flex gap-3 mt-4">
