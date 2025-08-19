@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Auth from "./Auth";
 import Navbar from "./Navbar";
 import Search from "./Search";
 
