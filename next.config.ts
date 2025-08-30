@@ -1,16 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        hostname: "cdn.dummyjson.com",
-      },
-      {
-        hostname: "fakeimg.pl",
-      },
-    ],
-  },
+    images: {
+        domains: [
+            "cdn.dummyjson.com",
+            "lh3.googleusercontent.com",
+            "fakeimg.pl",
+        ],
+    },
 };
 
 export default nextConfig;
