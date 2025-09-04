@@ -1,17 +1,16 @@
-// middleware.ts
 import { withAuth } from "next-auth/middleware";
 
 export default withAuth({
-    pages: {
-        signIn: "/account",
+  pages: {
+    signIn: "/account",
+  },
+  callbacks: {
+    authorized: ({ token }) => {
+      return !!token;
     },
-    callbacks: {
-        authorized: ({ token }) => {
-            return !!token;
-        },
-    },
+  },
 });
 
 export const config = {
-    matcher: ["/cart", "/wishlist"],
+  matcher: ["/cart", "/wishlist"],
 };
