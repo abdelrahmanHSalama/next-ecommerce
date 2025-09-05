@@ -78,112 +78,85 @@ const ProductsFilters = ({
   return (
     <div>
       <button
-        className="lg:hidden mb-4 w-full border px-4 py-2 rounded-md cursor-pointer transition duration-250 flex items-center justify-between"
+        className="border lg:hover:bg-black lg:hover:text-white px-4 py-2 rounded-md cursor-pointer w-max transition duration-250 flex gap-2 items-center lg:hidden mb-4"
         onClick={handleFiltersOpen}
-        aria-expanded={filtersOpen}
       >
-        <span className="flex items-center gap-2 text-sm font-medium">
-          <Icon icon="lucide:filter" width="16" height="16" />
-          Filter Products
-        </span>
-        <Icon
-          icon="lucide:chevron-down"
-          width="18"
-          height="18"
-          className={`${
-            filtersOpen ? "rotate-180" : "rotate-0"
-          } transition-transform duration-250`}
-        />
+        <Icon icon="lucide:filter" width="16" height="16" /> Filter Products
       </button>
-
-      <div className="hidden lg:flex flex-col gap-1 mb-2">
-        <p className="text-xl font-semibold">Filter Products</p>
+      <div className="hidden lg:block">
+        <p className="text-xl mb-2">Filter Products</p>
+        <p className="text-lg mb-2">Categories</p>
       </div>
-
       <div
-        className={`overflow-hidden lg:overflow-visible lg:block transition-all duration-250 ease-in-out ${
-          filtersOpen ? "max-h-[1200px]" : "max-h-0"
+        className={`lg:block transition-all duration-250 ease-in-out ${
+          filtersOpen ? "max-h-[1000px]" : "max-h-0"
         }`}
       >
-        <div className="mb-4">
-          <div className="flex items-center justify-between">
-            <p className="text-base lg:text-lg font-medium">Categories</p>
-            <button
+        {isLoading ? (
+          <div className="w-full flex justify-center">
+            <Loading />
+          </div>
+        ) : (
+          <ul className="list-none mb-2">
+            {(folded ? categories.slice(0, 6) : categories).map(
+              (category, i) => (
+                <li key={i} className="mb-1">
+                  <label className="cursor-pointer flex items-center gap-1 w-max">
+                    <input
+                      type="radio"
+                      name="category"
+                      checked={selectedCategory === category.slug}
+                      onChange={() => handleChangeCategory(category.slug)}
+                      className="appearance-none border-2 border-black rounded-full w-4 h-4 checked:bg-black cursor-pointer"
+                    ></input>
+                    <p>{category.name}</p>
+                  </label>
+                </li>
+              )
+            )}
+            <div
               onClick={handleFold}
-              className="text-sm flex items-center gap-1 cursor-pointer lg:hover:font-semibold"
+              className="cursor-pointer lg:hover:font-bold"
             >
               {folded ? (
-                <>
+                <div className="flex items-center gap-1">
                   <Icon icon="lucide:circle-plus" width="16" height="16" />
-                  Show All
-                </>
+                  <p>Show All Categories</p>
+                </div>
               ) : (
-                <>
+                <div className="flex items-center gap-1">
                   <Icon icon="lucide:circle-minus" width="16" height="16" />
-                  Show Less
-                </>
+                  <p>Show Less Categories</p>
+                </div>
               )}
-            </button>
-          </div>
-
-          {isLoading ? (
-            <div className="w-full flex justify-center py-6">
-              <Loading />
             </div>
-          ) : (
-            <ul className="mt-2 grid grid-cols-1 gap-1">
-              {(folded ? categories.slice(0, 6) : categories).map(
-                (category, i) => (
-                  <li key={i} className="">
-                    <label className="cursor-pointer inline-flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name="category"
-                        checked={selectedCategory === category.slug}
-                        onChange={() => handleChangeCategory(category.slug)}
-                        className="peer appearance-none border-2 border-black rounded-full w-4 h-4 checked:bg-black cursor-pointer"
-                      />
-                      <span className="text-sm lg:text-base peer-checked:font-semibold">
-                        {category.name}
-                      </span>
-                    </label>
-                  </li>
-                )
-              )}
-            </ul>
-          )}
-        </div>
-
-        {/* Price Range */}
-        <div className="mb-2">
-          <p className="text-base lg:text-lg font-medium mb-2">Price Range</p>
-          <div className="grid grid-cols-2 gap-2 mb-3 w-full max-w-xs">
-            <input
-              type="number"
-              inputMode="numeric"
-              placeholder="Min"
-              className="border px-3 py-2 rounded-md text-sm"
-              value={tempMinPrice}
-              onChange={(e) => setTempMinPrice(e.target.value)}
-            />
-            <input
-              type="number"
-              inputMode="numeric"
-              placeholder="Max"
-              className="border px-3 py-2 rounded-md text-sm"
-              value={tempMaxPrice}
-              onChange={(e) => setTempMaxPrice(e.target.value)}
-            />
-          </div>
+          </ul>
+        )}
+        <div className="flex flex-col mb-4">
+          <p className="text-lg mb-2">Price Range</p>
+          <input
+            type="text"
+            placeholder="Min Price"
+            className="border p-1 rounded-md mb-2 w-max"
+            value={tempMinPrice}
+            onChange={(e) => setTempMinPrice(e.target.value)}
+          ></input>
+          <input
+            type="text"
+            placeholder="Max Price"
+            className="border p-1 rounded-md mb-2 w-max"
+            value={tempMaxPrice}
+            onChange={(e) => setTempMaxPrice(e.target.value)}
+          ></input>
           <div className="flex gap-2">
             <button
-              className="px-3 py-2 rounded-md border bg-black text-white lg:hover:opacity-90 transition duration-250 text-sm"
+              className="border lg:hover:bg-black lg:hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
               onClick={applyFilters}
             >
               Apply
             </button>
             <button
-              className="px-3 py-2 rounded-md border bg-white text-black lg:hover:bg-black lg:hover:text-white transition duration-250 text-sm"
+              className="border lg:hover:bg-black lg:hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
               onClick={clearFilters}
             >
               Clear
