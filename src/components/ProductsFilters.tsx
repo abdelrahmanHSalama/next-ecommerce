@@ -101,62 +101,72 @@ const ProductsFilters = ({
             {(folded ? categories.slice(0, 6) : categories).map(
               (category, i) => (
                 <li key={i} className="mb-1">
-                  <label className="cursor-pointer flex items-center gap-1 w-max">
+                  <label className="cursor-pointer flex items-center gap-1 w-max group">
                     <input
                       type="radio"
                       name="category"
                       checked={selectedCategory === category.slug}
                       onChange={() => handleChangeCategory(category.slug)}
-                      className="appearance-none border-2 border-black rounded-full w-4 h-4 checked:bg-black cursor-pointer"
+                      className="appearance-none border-1 border-black w-3 h-3 rounded-full checked:bg-black cursor-pointer"
                     ></input>
-                    <p>{category.name}</p>
+                    <p className="group-hover:font-medium">{category.name}</p>
                   </label>
                 </li>
               )
             )}
             <div
               onClick={handleFold}
-              className="cursor-pointer lg:hover:font-bold"
+              className="cursor-pointer lg:hover:font-medium"
             >
               {folded ? (
                 <div className="flex items-center gap-1">
-                  <Icon icon="lucide:circle-plus" width="16" height="16" />
+                  <Icon
+                    icon="lucide:circle-plus"
+                    width="12"
+                    height="12"
+                    color="black"
+                  />
                   <p>Show All Categories</p>
                 </div>
               ) : (
                 <div className="flex items-center gap-1">
-                  <Icon icon="lucide:circle-minus" width="16" height="16" />
+                  <Icon
+                    icon="lucide:circle-minus"
+                    width="12"
+                    height="12"
+                    color="black"
+                  />
                   <p>Show Less Categories</p>
                 </div>
               )}
             </div>
           </ul>
         )}
-        <div className="flex flex-col mb-4">
+        <div className="flex flex-col mb-4 max-w-[250px]">
           <p className="text-lg mb-2">Price Range</p>
           <input
             type="text"
             placeholder="Min Price"
-            className="border p-1 rounded-md mb-2 w-max"
+            className="border p-1 rounded-md mb-2 w-full"
             value={tempMinPrice}
             onChange={(e) => setTempMinPrice(e.target.value)}
           ></input>
           <input
             type="text"
             placeholder="Max Price"
-            className="border p-1 rounded-md mb-2 w-max"
+            className="border p-1 rounded-md mb-2 w-full"
             value={tempMaxPrice}
             onChange={(e) => setTempMaxPrice(e.target.value)}
           ></input>
-          <div className="flex gap-2">
+          <div className="flex gap-1">
             <button
-              className="border lg:hover:bg-black lg:hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+              className="border bg-black text-white lg:hover:bg-white lg:hover:text-black px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250 flex-1"
               onClick={applyFilters}
             >
               Apply
             </button>
             <button
-              className="border lg:hover:bg-black lg:hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250"
+              className="border lg:hover:bg-black lg:hover:text-white px-2 py-1 rounded-md cursor-pointer w-max mb-1 transition duration-250 flex-1"
               onClick={clearFilters}
             >
               Clear

@@ -27,7 +27,7 @@ const Auth = ({
           <div className="absolute z-10 bg-[#F5F5F5] w-full rounded-b-md">
             <ul className="list-none p-4 space-y-2">
               <li
-                className="cursor-pointer hover:font-bold"
+                className="cursor-pointer hover:font-medium"
                 onClick={() => {
                   router.push("/account");
                   setAuthMenu(false);
@@ -36,7 +36,7 @@ const Auth = ({
                 Account Page
               </li>
               <li
-                className="cursor-pointer hover:font-bold"
+                className="cursor-pointer hover:font-medium"
                 onClick={async () => {
                   setAuthMenu(false);
                   await signOut({ callbackUrl: "/" });
